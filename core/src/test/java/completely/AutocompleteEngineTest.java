@@ -2,12 +2,7 @@ package completely;
 
 import completely.data.Record;
 import completely.data.SimpleRecord;
-import completely.text.analyze.Analyzer;
 import completely.text.index.HashMultiMap;
-import completely.text.index.Index;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,16 +15,9 @@ public class AutocompleteEngineTest
 
     public AutocompleteEngineTest()
     {
-        Index<Record> index = new HashMultiMap<Record>();
-        Analyzer analyzer = new Analyzer()
-        {
-            @Override
-            public Collection<String> apply(Collection<String> input)
-            {
-                return new ArrayList<String>(input);
-            }
-        };
-        engine = new AutocompleteEngine<Record>(index, analyzer);
+        engine = new AutocompleteEngine.Builder<Record>()
+            .setIndex(new HashMultiMap<Record>())
+            .build();
     }
 
     @Test

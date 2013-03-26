@@ -18,66 +18,19 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * Facade for indexing and searching {@link Record} instances.
  */
-public class AutocompleteEngine<T extends Record>
+public final class AutocompleteEngine<T extends Record>
 {
-    private final IndexAdapter<T> index;
     private final Analyzer analyzer;
     private final Comparator<T> comparator;
+    private final IndexAdapter<T> index;
     private final Lock read;
     private final Lock write;
 
-    public AutocompleteEngine(final Index<T> index, Analyzer analyzer)
+    private AutocompleteEngine(Builder<T> builder)
     {
-        this(new IndexAdapter<T>()
-        {
-            @Override
-            public Collection<T> get(String token)
-            {
-                return index.get(token);
-            }
-
-            @Override
-            public boolean put(String token, T value)
-            {
-                return index.put(token, value);
-            }
-        }
-        , analyzer);
-    }
-
-    public AutocompleteEngine(final FuzzyIndex<T> index, Analyzer analyzer)
-    {
-        this(new IndexAdapter<T>()
-        {
-            @Override
-            public Collection<T> get(String token)
-            {
-                return index.getAny(token);
-            }
-
-            @Override
-            public boolean put(String token, T value)
-            {
-                return index.put(token, value);
-            }
-        }
-        , analyzer);
-    }
-
-    public AutocompleteEngine(IndexAdapter<T> index, Analyzer analyzer)
-    {
-        this.index = index;
-        this.analyzer = analyzer;
-        this.comparator = new Comparator<T>()
-        {
-            @Override
-            public int compare(T o1, T o2)
-            {
-                Double score1 = o1.getScore();
-                Double score2 = o2.getScore();
-                return score2.compareTo(score1);
-            }
-        };
+        this.analyzer = builder.analyzer;
+        this.comparator = builder.comparator;
+        this.index = builder.index;
         ReadWriteLock lock = new ReentrantReadWriteLock();
         this.read = lock.readLock();
         this.write = lock.writeLock();
@@ -117,7 +70,7 @@ public class AutocompleteEngine<T extends Record>
 
     /**
      * Returns a {@link List} of all records that match a query, sorted
-     * according to its score.
+     * according to the default comparator.
      */
     public List<T> search(String query)
     {
@@ -172,5 +125,115 @@ public class AutocompleteEngine<T extends Record>
             return result.subList(0, limit);
         }
         return result;
+    }
+
+    /**
+     * Builder for constructing {@link AutocompleteEngine} instances.
+     */
+    public static class Builder<T extends Record>
+    {
+        private Analyzer analyzer;
+        private Comparator<T> comparator;
+        private IndexAdapter<T> index;
+
+        public Builder()
+        {
+            this.analyzer = new Analyzer()
+            {
+                @Override
+                public Collection<String> apply(Collection<String> input)
+                {
+                    return new ArrayList<String>(input);
+                }
+            };
+            this.comparator = new Comparator<T>()
+            {
+                @Override
+                public int compare(T o1, T o2)
+                {
+                    Double score1 = o1.getScore();
+                    Double score2 = o2.getScore();
+                    return score2.compareTo(score1);
+                }
+            };
+        }
+
+        /**
+         * Set the analyzer.
+         */
+        public Builder<T> setAnalyzer(Analyzer analyzer)
+        {
+            this.analyzer = analyzer;
+            return this;
+        }
+
+        /**
+         * Set the comparator.
+         */
+        public Builder<T> setComparator(Comparator<T> comparator)
+        {
+            this.comparator = comparator;
+            return this;
+        }
+
+        /**
+         * Set the index.
+         */
+        public Builder<T> setIndex(final Index<T> index)
+        {
+            return setIndex(new IndexAdapter<T>()
+            {
+                @Override
+                public Collection<T> get(String token)
+                {
+                    return index.get(token);
+                }
+
+                @Override
+                public boolean put(String token, T value)
+                {
+                    return index.put(token, value);
+                }
+            });
+        }
+
+        /**
+         * Set the index.
+         */
+        public Builder<T> setIndex(final FuzzyIndex<T> index)
+        {
+            return setIndex(new IndexAdapter<T>()
+            {
+                @Override
+                public Collection<T> get(String token)
+                {
+                    return index.getAny(token);
+                }
+
+                @Override
+                public boolean put(String token, T value)
+                {
+                    return index.put(token, value);
+                }
+            });
+        }
+
+        /**
+         * Set the index.
+         */
+        public Builder<T> setIndex(IndexAdapter<T> index)
+        {
+            this.index = index;
+            return this;
+        }
+
+        /**
+         * Returns a new {@link AutocompleteEngine} parameterized according to
+         * the builder.
+         */
+        public AutocompleteEngine<T> build()
+        {
+            return new AutocompleteEngine<T>(this);
+        }
     }
 }

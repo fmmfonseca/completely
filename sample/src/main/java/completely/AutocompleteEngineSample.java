@@ -2,9 +2,7 @@ package completely;
 
 import completely.data.Record;
 import completely.data.SimpleRecord;
-import completely.text.analyze.Analyzer;
 import completely.text.analyze.transform.LowerCaseTransformer;
-import completely.text.index.FuzzyIndex;
 import completely.text.index.HashTrie;
 
 import java.io.Console;
@@ -13,9 +11,10 @@ public final class AutocompleteEngineSample
 {
     public static void main(String[] args)
     {
-        FuzzyIndex<Record> index = new HashTrie<Record>();
-        Analyzer analyzer = new LowerCaseTransformer();
-        AutocompleteEngine<Record> engine = new AutocompleteEngine<Record>(index, analyzer);
+        AutocompleteEngine<Record> engine = new AutocompleteEngine.Builder<Record>()
+            .setIndex(new HashTrie<Record>())
+            .setAnalyzer(new LowerCaseTransformer())
+            .build();
 
         String[] entries = {
             "ActionScript",
