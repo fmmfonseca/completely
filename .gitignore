@@ -1,0 +1,14 @@
+.DS_Store
+# Java
+*.class
+*.jar
+# Maven
+target/
+# Eclipse
+.classpath
+.metadata
+.project
+.settings/
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
