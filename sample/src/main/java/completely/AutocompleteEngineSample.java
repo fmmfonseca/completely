@@ -1,6 +1,5 @@
 package completely;
 
-import completely.data.Record;
 import completely.data.SimpleRecord;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.HashTrie;
@@ -11,8 +10,8 @@ public final class AutocompleteEngineSample
 {
     public static void main(String[] args)
     {
-        AutocompleteEngine<Record> engine = new AutocompleteEngine.Builder<Record>()
-            .setIndex(new HashTrie<Record>())
+        AutocompleteEngine<SimpleRecord> engine = new AutocompleteEngine.Builder<SimpleRecord>()
+            .setIndex(new HashTrie<SimpleRecord>())
             .setAnalyzer(new LowerCaseTransformer())
             .build();
 
@@ -49,7 +48,7 @@ public final class AutocompleteEngineSample
         while (true)
         {
             String input = console.readLine("Query: ");
-            for (Record record : engine.search(input))
+            for (SimpleRecord record : engine.search(input))
             {
                 console.printf("- %s%n", record.getText());
             }

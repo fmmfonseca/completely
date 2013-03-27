@@ -1,9 +1,9 @@
 package completely.data;
 
 /**
- * Bare implementation of the {@link Record} interface.
+ * Bare implementation of the {@link Indexable} interface.
  */
-public class SimpleRecord implements Record
+public class SimpleRecord implements Indexable
 {
     private final String text;
     private final double score;

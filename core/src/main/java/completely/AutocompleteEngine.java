@@ -1,6 +1,6 @@
 package completely;
 
-import completely.data.Record;
+import completely.data.Indexable;
 import completely.text.analyze.Analyzer;
 import completely.text.index.FuzzyIndex;
 import completely.text.index.Index;
@@ -16,9 +16,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * Facade for indexing and searching {@link Record} instances.
+ * Facade for indexing and searching {@link Indexable} elements.
  */
-public final class AutocompleteEngine<T extends Record>
+public final class AutocompleteEngine<T extends Indexable>
 {
     private final Analyzer analyzer;
     private final Comparator<T> comparator;
@@ -37,16 +37,16 @@ public final class AutocompleteEngine<T extends Record>
     }
 
     /**
-     * Indexes a single record.
+     * Indexes a single element.
      */
-    public boolean add(T record)
+    public boolean add(T element)
     {
         write.lock();
         try
         {
-            for (String token : analyzer.apply(record.getText()))
+            for (String token : analyzer.apply(element.getText()))
             {
-                index.put(token, record);
+                index.put(token, element);
             }
             return true;
         }
@@ -57,19 +57,19 @@ public final class AutocompleteEngine<T extends Record>
     }
 
     /**
-     * Indexes multiple records.
+     * Indexes multiple elements.
      */
-    public boolean add(Iterable<T> records)
+    public boolean add(Iterable<T> elements)
     {
-        for (T record : records)
+        for (T element : elements)
         {
-            add(record);
+            add(element);
         }
         return true;
     }
 
     /**
-     * Returns a {@link List} of all records that match a query, sorted
+     * Returns a {@link List} of all elements that match a query, sorted
      * according to the default comparator.
      */
     public List<T> search(String query)
@@ -78,7 +78,7 @@ public final class AutocompleteEngine<T extends Record>
     }
 
     /**
-     * Returns a {@link List} of all records that match a query, sorted
+     * Returns a {@link List} of all elements that match a query, sorted
      * according to the specified comparator.
      */
     public List<T> search(String query, Comparator<T> comparator)
@@ -106,7 +106,7 @@ public final class AutocompleteEngine<T extends Record>
     }
 
     /**
-     * Returns a {@link List} of the top records that match a query.
+     * Returns a {@link List} of the top elements that match a query.
      */
     public List<T> search(String query, int limit)
     {
@@ -114,7 +114,7 @@ public final class AutocompleteEngine<T extends Record>
     }
 
     /**
-     * Returns a {@link List} of the top records that match a query, sorted
+     * Returns a {@link List} of the top elements that match a query, sorted
      * according to the specified comparator.
      */
     public List<T> search(String query, Comparator<T> comparator, int limit)
@@ -130,7 +130,7 @@ public final class AutocompleteEngine<T extends Record>
     /**
      * Builder for constructing {@link AutocompleteEngine} instances.
      */
-    public static class Builder<T extends Record>
+    public static class Builder<T extends Indexable>
     {
         private Analyzer analyzer;
         private Comparator<T> comparator;

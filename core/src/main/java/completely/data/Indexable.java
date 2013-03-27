@@ -3,7 +3,7 @@ package completely.data;
 /**
  * Unit of indexing and search.
  */
-public interface Record
+public interface Indexable
 {
     String getText();
 
