@@ -1,6 +1,6 @@
 package completely;
 
-import completely.data.SimpleRecord;
+import completely.data.Record;
 import completely.text.index.HashMultiMap;
 import java.util.List;
 
@@ -10,22 +10,22 @@ import static org.junit.Assert.assertEquals;
 
 public class AutocompleteEngineTest
 {
-    private AutocompleteEngine<SimpleRecord> engine;
+    private AutocompleteEngine<Record> engine;
 
     public AutocompleteEngineTest()
     {
-        engine = new AutocompleteEngine.Builder<SimpleRecord>()
-            .setIndex(new HashMultiMap<SimpleRecord>())
+        engine = new AutocompleteEngine.Builder<Record>()
+            .setIndex(new HashMultiMap<Record>())
             .build();
     }
 
     @Test
     public void testSearchSort()
     {
-        engine.add(new SimpleRecord("a", 0));
-        engine.add(new SimpleRecord("a", 1));
-        engine.add(new SimpleRecord("a", 2));
-        List<SimpleRecord> result = engine.search("a");
+        engine.add(new Record("a", 0));
+        engine.add(new Record("a", 1));
+        engine.add(new Record("a", 2));
+        List<Record> result = engine.search("a");
         assertEquals(3, result.size());
         assertEquals(2, result.get(0).getScore(), 0);
         assertEquals(1, result.get(1).getScore(), 0);
@@ -35,10 +35,10 @@ public class AutocompleteEngineTest
     @Test
     public void testSearchLimit()
     {
-        engine.add(new SimpleRecord("a", 0));
-        engine.add(new SimpleRecord("a", 1));
-        engine.add(new SimpleRecord("a", 2));
-        List<SimpleRecord> result = engine.search("a", 2);
+        engine.add(new Record("a", 0));
+        engine.add(new Record("a", 1));
+        engine.add(new Record("a", 2));
+        List<Record> result = engine.search("a", 2);
         assertEquals(2, result.size());
         assertEquals(2, result.get(0).getScore(), 0);
         assertEquals(1, result.get(1).getScore(), 0);

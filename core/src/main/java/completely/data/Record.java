@@ -3,17 +3,17 @@ package completely.data;
 /**
  * Bare implementation of the {@link Indexable} interface.
  */
-public class SimpleRecord implements Indexable
+public class Record implements Indexable
 {
     private final String text;
     private final double score;
 
-    public SimpleRecord(String text)
+    public Record(String text)
     {
         this(text, 0);
     }
 
-    public SimpleRecord(String text, double score)
+    public Record(String text, double score)
     {
         this.text = text;
         this.score = score;
