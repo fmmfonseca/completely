@@ -1,6 +1,6 @@
 package completely;
 
-import completely.data.Record;
+import completely.data.Indexable;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.HashTrie;
 
@@ -10,8 +10,8 @@ public final class AutocompleteEngineSample
 {
     public static void main(String[] args)
     {
-        AutocompleteEngine<Record> engine = new AutocompleteEngine.Builder<Record>()
-            .setIndex(new HashTrie<Record>())
+        AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()
+            .setIndex(new HashTrie<SampleRecord>())
             .setAnalyzer(new LowerCaseTransformer())
             .build();
 
@@ -41,17 +41,39 @@ public final class AutocompleteEngineSample
         };
         for (String entry : entries)
         {
-            engine.add(new Record(entry));
+            engine.add(new SampleRecord(entry));
         }
 
         Console console = System.console();
         while (true)
         {
             String input = console.readLine("Query: ");
-            for (Record record : engine.search(input))
+            for (SampleRecord record : engine.search(input))
             {
                 console.printf("- %s%n", record.getText());
             }
+        }
+    }
+
+    private static class SampleRecord implements Indexable
+    {
+        private final String text;
+
+        SampleRecord(String text)
+        {
+            this.text = text;
+        }
+
+        @Override
+        public String getText()
+        {
+            return text;
+        }
+
+        @Override
+        public double getScore()
+        {
+            return 0;
         }
     }
 }
