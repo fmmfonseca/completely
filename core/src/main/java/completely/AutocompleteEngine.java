@@ -44,9 +44,12 @@ public final class AutocompleteEngine<T extends Indexable>
         write.lock();
         try
         {
-            for (String token : analyzer.apply(element.getText()))
+            for (String field : element.getFields())
             {
-                index.put(token, element);
+                for (String token : analyzer.apply(field))
+                {
+                    index.put(token, element);
+                }
             }
             return true;
         }

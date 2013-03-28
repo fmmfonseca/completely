@@ -5,6 +5,8 @@ import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.HashTrie;
 
 import java.io.Console;
+import java.util.Arrays;
+import java.util.List;
 
 public final class AutocompleteEngineSample
 {
@@ -37,7 +39,7 @@ public final class AutocompleteEngineSample
             "Python",
             "Ruby",
             "Scala",
-            "Scheme"
+            "Scheme",
         };
         for (String entry : entries)
         {
@@ -50,24 +52,29 @@ public final class AutocompleteEngineSample
             String input = console.readLine("Query: ");
             for (SampleRecord record : engine.search(input))
             {
-                console.printf("- %s%n", record.getText());
+                console.printf("- %s%n", record.getName());
             }
         }
     }
 
     private static class SampleRecord implements Indexable
     {
-        private final String text;
+        private final String name;
 
-        SampleRecord(String text)
+        SampleRecord(String name)
         {
-            this.text = text;
+            this.name = name;
         }
 
         @Override
-        public String getText()
+        public List<String> getFields()
         {
-            return text;
+            return Arrays.asList(name);
+        }
+
+        public String getName()
+        {
+            return name;
         }
 
         @Override
