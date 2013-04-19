@@ -90,7 +90,7 @@ public abstract class IndexTest<T extends Index<Object>>
     @Test
     public void testPutNullValue()
     {
-        assertTrue(index.put("abc", (Object) null));
+        assertTrue(index.put("abc", null));
         assertEquals(1, index.size());
     }
 
@@ -133,7 +133,7 @@ public abstract class IndexTest<T extends Index<Object>>
     @Test
     public void testRemoveNullValue()
     {
-        index.put("abc", (Object) null);
+        index.put("abc", null);
         assertTrue(index.remove("abc", (Object) null));
         assertEquals(0, index.size());
     }

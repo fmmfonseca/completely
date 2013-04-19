@@ -10,7 +10,7 @@ public abstract class AbstractIndex<V> implements Index<V>
     @Override
     public boolean put(String key, V value)
     {
-        return put(key, Arrays.asList(value));
+        return putAll(key, Arrays.asList(value));
     }
 
     @Override

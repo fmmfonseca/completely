@@ -42,7 +42,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     }
 
     @Override
-    public boolean put(String key, Collection<V> values)
+    public boolean putAll(String key, Collection<V> values)
     {
         if (key == null)
         {

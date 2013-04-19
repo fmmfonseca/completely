@@ -48,9 +48,9 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
     }
 
     @Override
-    public boolean put(String key, Collection<V> values)
+    public boolean putAll(String key, Collection<V> values)
     {
-        return key != null ? put(root, key, values) : false;
+        return key != null ? putAll(root, key, values) : false;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
         return null;
     }
 
-    private boolean put(Node node, String key, Collection<V> values)
+    private boolean putAll(Node node, String key, Collection<V> values)
     {
         if (key.length() <= 0)
         {
@@ -104,7 +104,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
                 child = new Node();
                 node.children.put(character, child);
             }
-            return put(child, key.substring(1), values);
+            return putAll(child, key.substring(1), values);
         }
     }
 

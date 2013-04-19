@@ -31,7 +31,7 @@ public interface Index<V>
     /**
      * Associates a collection of values with a key.
      */
-    boolean put(String key, Collection<V> values);
+    boolean putAll(String key, Collection<V> values);
 
     /**
      * Removes all values associated with a key.
