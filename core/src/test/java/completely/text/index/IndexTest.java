@@ -38,7 +38,7 @@ public abstract class IndexTest<T extends Index<Object>>
     {
         index.put("abc", 0);
         index.put("abc", 1);
-        Collection<Object> result = index.get("abc");
+        Collection<Object> result = index.getAll("abc");
         assertEquals(2, result.size());
         assertTrue(result.contains(0));
         assertTrue(result.contains(1));
@@ -47,13 +47,13 @@ public abstract class IndexTest<T extends Index<Object>>
     @Test
     public void testGetInexistent()
     {
-        assertTrue(index.get("abc").isEmpty());
+        assertTrue(index.getAll("abc").isEmpty());
     }
 
     @Test
     public void testGetNullKey()
     {
-        assertTrue(index.get(null).isEmpty());
+        assertTrue(index.getAll(null).isEmpty());
     }
 
     @Test

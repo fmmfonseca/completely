@@ -28,7 +28,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
     }
 
     @Override
-    public Set<V> get(String key)
+    public Set<V> getAll(String key)
     {
         Node node = key != null ? find(root, key) : null;
         return node != null ? Collections.unmodifiableSet(node.values) : Collections.<V>emptySet();

@@ -29,7 +29,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     }
 
     @Override
-    public Set<V> get(String key)
+    public Set<V> getAll(String key)
     {
         Set<V> value = map.get(key);
         return value != null ? Collections.unmodifiableSet(value) : Collections.<V>emptySet();

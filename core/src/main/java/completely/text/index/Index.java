@@ -16,7 +16,7 @@ public interface Index<V>
     /**
      * Returns a {@link Set} of all values associated with a key.
      */
-    Set<V> get(String key);
+    Set<V> getAll(String key);
 
     /**
      * Returns <tt>true</tt> if no key-value associations exist.

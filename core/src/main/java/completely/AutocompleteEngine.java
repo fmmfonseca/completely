@@ -189,7 +189,7 @@ public final class AutocompleteEngine<T extends Indexable>
                 @Override
                 public Collection<T> get(String token)
                 {
-                    return index.get(token);
+                    return index.getAll(token);
                 }
 
                 @Override
