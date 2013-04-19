@@ -34,19 +34,19 @@ public interface Index<V>
     boolean putAll(String key, Collection<V> values);
 
     /**
-     * Removes all values associated with a key.
-     */
-    Set<V> remove(String key);
-
-    /**
      * Removes a single value associated with a key.
      */
     boolean remove(String key, V value);
 
     /**
+     * Removes all values associated with a key.
+     */
+    Set<V> removeAll(String key);
+
+    /**
      * Removes a collection of values associated with a key.
      */
-    boolean remove(String key, Collection<V> values);
+    boolean removeAll(String key, Collection<V> values);
 
     /**
      * Returns the number of key-value associations.

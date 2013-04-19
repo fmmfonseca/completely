@@ -58,14 +58,14 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     }
 
     @Override
-    public Set<V> remove(String key)
+    public Set<V> removeAll(String key)
     {
         Set<V> value = map.remove(key);
         return value != null ? value : Collections.<V>emptySet();
     }
 
     @Override
-    public boolean remove(String key, Collection<V> values)
+    public boolean removeAll(String key, Collection<V> values)
     {
         Set<V> value = map.get(key);
         return value != null ? value.removeAll(values) : false;

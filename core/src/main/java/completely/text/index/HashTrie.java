@@ -54,15 +54,15 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
     }
 
     @Override
-    public Set<V> remove(String key)
+    public Set<V> removeAll(String key)
     {
-        return key != null ? remove(root, key) : Collections.<V>emptySet();
+        return key != null ? removeAll(root, key) : Collections.<V>emptySet();
     }
 
     @Override
-    public boolean remove(String key, Collection<V> values)
+    public boolean removeAll(String key, Collection<V> values)
     {
-        return key != null ? remove(root, key, values) : false;
+        return key != null ? removeAll(root, key, values) : false;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
         }
     }
 
-    private Set<V> remove(Node node, String key)
+    private Set<V> removeAll(Node node, String key)
     {
         if (key.length() <= 0)
         {
@@ -122,7 +122,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             Node child = node.children.get(character);
             if (child != null)
             {
-                Set<V> result = remove(child, key.substring(1));
+                Set<V> result = removeAll(child, key.substring(1));
                 if (!result.isEmpty() && child.isEmpty())
                 {
                     node.children.remove(character);
@@ -133,7 +133,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
         return Collections.<V>emptySet();
     }
 
-    private boolean remove(Node node, String key, Collection<V> values)
+    private boolean removeAll(Node node, String key, Collection<V> values)
     {
         if (key.length() <= 0)
         {
@@ -145,7 +145,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             Node child = node.children.get(character);
             if (child != null)
             {
-                boolean result = remove(child, key.substring(1), values);
+                boolean result = removeAll(child, key.substring(1), values);
                 if (result && child.isEmpty())
                 {
                     node.children.remove(character);

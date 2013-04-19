@@ -16,6 +16,6 @@ public abstract class AbstractIndex<V> implements Index<V>
     @Override
     public boolean remove(String key, V value)
     {
-        return remove(key, Arrays.asList(value));
+        return removeAll(key, Arrays.asList(value));
     }
 }
