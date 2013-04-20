@@ -123,7 +123,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             if (child != null)
             {
                 Set<V> result = removeAll(child, key.substring(1));
-                if (!result.isEmpty() && child.isEmpty())
+                if (child.isEmpty())
                 {
                     node.children.remove(character);
                 }
@@ -146,7 +146,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             if (child != null)
             {
                 boolean result = removeAll(child, key.substring(1), values);
-                if (result && child.isEmpty())
+                if (child.isEmpty())
                 {
                     node.children.remove(character);
                 }
