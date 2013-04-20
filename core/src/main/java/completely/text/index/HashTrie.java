@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -51,6 +52,12 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
     public boolean putAll(String key, Collection<V> values)
     {
         return key != null ? putAll(root, key, values) : false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<V> values)
+    {
+        return removeAll(root, values);
     }
 
     @Override
@@ -106,6 +113,21 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             }
             return putAll(child, key.substring(1), values);
         }
+    }
+
+    private boolean removeAll(Node node, Collection<V> values)
+    {
+        boolean result = node.values.removeAll(values);
+        for (Iterator<Node> iterator = node.children.values().iterator(); iterator.hasNext();)
+        {
+            Node child = iterator.next();
+            result = removeAll(child, values) || result;
+            if (child.isEmpty())
+            {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 
     private Set<V> removeAll(Node node, String key)

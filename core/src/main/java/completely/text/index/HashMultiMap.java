@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -55,6 +56,22 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
             map.put(key, value);
         }
         return value.addAll(values);
+    }
+
+    @Override
+    public boolean removeAll(Collection<V> values)
+    {
+        boolean result = false;
+        for (Iterator<Set<V>> iterator = map.values().iterator(); iterator.hasNext();)
+        {
+            Set<V> value = iterator.next();
+            result = value.removeAll(values) || result;
+            if (value.isEmpty())
+            {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 
     @Override

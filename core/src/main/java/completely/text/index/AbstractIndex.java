@@ -18,4 +18,10 @@ public abstract class AbstractIndex<V> implements Index<V>
     {
         return removeAll(key, Arrays.asList(value));
     }
+
+    @Override
+    public boolean remove(V value)
+    {
+        return removeAll(Arrays.asList(value));
+    }
 }

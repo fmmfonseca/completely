@@ -39,6 +39,16 @@ public interface Index<V>
     boolean remove(String key, V value);
 
     /**
+     * Removes a single value associated with any keys.
+     */
+    boolean remove(V value);
+
+    /**
+     * Removes a collection of values associated with any keys.
+     */
+    boolean removeAll(Collection<V> values);
+
+    /**
      * Removes all values associated with a key.
      */
     Set<V> removeAll(String key);

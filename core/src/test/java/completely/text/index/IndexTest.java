@@ -111,11 +111,11 @@ public abstract class IndexTest<T extends Index<Object>>
     @Test
     public void testRemoveNullKey()
     {
-        assertTrue(index.removeAll(null).isEmpty());
+        assertTrue(index.removeAll((String) null).isEmpty());
     }
 
     @Test
-    public void testRemoveValue()
+    public void testRemoveKeyValue()
     {
         index.put("abc", 0);
         index.put("abcd", 0);
@@ -124,17 +124,34 @@ public abstract class IndexTest<T extends Index<Object>>
     }
 
     @Test
-    public void testRemoveInexistentValue()
+    public void testRemoveInexistentKeyValue()
+    {
+        assertFalse(index.remove("abc", 0));
+    }
+
+    @Test
+    public void testRemoveValue()
     {
         index.put("abc", 0);
-        assertFalse(index.remove("abc", 1));
+        index.put("abcd", 0);
+        assertTrue(index.remove(0));
+        assertEquals(0, index.size());
+    }
+
+    @Test
+    public void testRemoveInexistentValue()
+    {
+        assertFalse(index.remove(0));
     }
 
     @Test
     public void testRemoveNullValue()
     {
         index.put("abc", null);
+        index.put("abcd", null);
         assertTrue(index.remove("abc", null));
+        assertEquals(1, index.size());
+        assertTrue(index.remove(null));
         assertEquals(0, index.size());
     }
 }
