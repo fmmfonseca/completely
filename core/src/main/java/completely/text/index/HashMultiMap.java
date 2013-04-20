@@ -68,7 +68,16 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     public boolean removeAll(String key, Collection<V> values)
     {
         Set<V> value = map.get(key);
-        return value != null ? value.removeAll(values) : false;
+        if (value != null)
+        {
+            boolean result = value.removeAll(values);
+            if (value.isEmpty())
+            {
+                map.remove(key);
+            }
+            return result;
+        }
+        return false;
     }
 
     @Override
