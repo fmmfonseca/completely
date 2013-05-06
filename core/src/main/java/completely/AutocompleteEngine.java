@@ -100,7 +100,10 @@ public final class AutocompleteEngine<T extends Indexable>
             {
                 result.retainAll(index.get(tokens.next()));
             }
-            Collections.sort(result, comparator);
+            if (comparator != null)
+            {
+                Collections.sort(result, comparator);
+            }
             return result;
         }
         finally

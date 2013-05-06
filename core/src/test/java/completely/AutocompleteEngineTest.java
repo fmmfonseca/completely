@@ -89,6 +89,16 @@ public class AutocompleteEngineTest
         assertEquals(0, result.get(2).getScore(), 0);
     }
 
+    @Test
+    public void testSearchNoSort()
+    {
+        engine.add(new TestRecord(0, "a"));
+        engine.add(new TestRecord(1, "a"));
+        engine.add(new TestRecord(2, "a"));
+        List<TestRecord> result = engine.search("a", null);
+        assertEquals(3, result.size());
+    }
+
     private static class TestRecord implements Indexable
     {
         private final List<String> fields;
