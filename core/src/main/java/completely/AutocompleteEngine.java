@@ -42,13 +42,13 @@ public final class AutocompleteEngine<T extends Indexable>
      */
     public boolean add(T element)
     {
-        return add(Arrays.asList(element));
+        return addAll(Arrays.asList(element));
     }
 
     /**
      * Indexes a collection of elements.
      */
-    public boolean add(Collection<T> elements)
+    public boolean addAll(Collection<T> elements)
     {
         boolean result = false;
         for (T element : elements)
