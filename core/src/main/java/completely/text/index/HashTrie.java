@@ -200,8 +200,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
 
     private class Node
     {
-        Map<Character, Node> children;
-        Set<V> values;
+        private Map<Character, Node> children;
+        private Set<V> values;
 
         Node()
         {
