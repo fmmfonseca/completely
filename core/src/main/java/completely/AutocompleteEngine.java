@@ -6,6 +6,7 @@ import completely.text.index.FuzzyIndex;
 import completely.text.index.Index;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,34 +42,34 @@ public final class AutocompleteEngine<T extends Indexable>
      */
     public boolean add(T element)
     {
-        write.lock();
-        try
-        {
-            for (String field : element.getFields())
-            {
-                for (String token : analyzer.apply(field))
-                {
-                    index.put(token, element);
-                }
-            }
-            return true;
-        }
-        finally
-        {
-            write.unlock();
-        }
+        return add(Arrays.asList(element));
     }
 
     /**
-     * Indexes multiple elements.
+     * Indexes a collection of elements.
      */
-    public boolean add(Iterable<T> elements)
+    public boolean add(Collection<T> elements)
     {
+        boolean result = false;
         for (T element : elements)
         {
-            add(element);
+            write.lock();
+            try
+            {
+                for (String field : element.getFields())
+                {
+                    for (String token : analyzer.apply(field))
+                    {
+                        result = index.put(token, element) || result;
+                    }
+                }
+            }
+            finally
+            {
+                write.unlock();
+            }
         }
-        return true;
+        return result;
     }
 
     /**

@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AutocompleteEngineTest
 {
@@ -20,6 +22,14 @@ public class AutocompleteEngineTest
         engine = new AutocompleteEngine.Builder<TestRecord>()
             .setIndex(new HashMultiMap<TestRecord>())
             .build();
+    }
+
+    @Test
+    public void testAdd()
+    {
+        TestRecord record = new TestRecord(0, "a");
+        assertTrue(engine.add(record));
+        assertFalse(engine.add(record));
     }
 
     @Test
