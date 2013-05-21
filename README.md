@@ -6,9 +6,11 @@ Autocomplete involves predicting a word or phrase that the user may type based o
 
 # References
 
+* Bořivoj Melichar. Approximate String Matching by Finite Automata;
 * Gonzalo Navarro. A Guided Tour to Approximate String Matching;
 * Leonid Boytsov. Indexing Methods for Approximate Dictionary Searching: Comparative Analysis;
 * Marios Hadjieleftheriou and Divesh Srivastava. Approximate String Processing;
+* Surajit Chaudhuri and Raghav Kaushik. Extending Autocompletion To Tolerate Errors;
 
 # License
 

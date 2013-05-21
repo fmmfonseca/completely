@@ -1,19 +1,25 @@
 package completely.text.index;
 
+import completely.text.match.Automaton;
+
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * Trie based implementation of the {@link PrefixIndex} interface.
+ * Trie based implementation of the {@link FuzzyIndex} interface.
  *
  * <p>Note that this implementation is not synchronized.
  */
-public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
+public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 {
     private Node root;
 
@@ -40,6 +46,20 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
     {
         Node node = fragment != null ? find(root, fragment) : null;
         return node != null ? Collections.unmodifiableSet(values(node)) : Collections.<V>emptySet();
+    }
+
+    @Override
+    public Set<V> getAny(Automaton matcher)
+    {
+        Set<V> result = new HashSet<V>();
+        if (matcher != null)
+        {
+            for (Node node : find(root, matcher))
+            {
+                result.addAll(values(node));
+            }
+        }
+        return Collections.unmodifiableSet(result);
     }
 
     @Override
@@ -94,6 +114,25 @@ public class HashTrie<V> extends AbstractIndex<V> implements PrefixIndex<V>
             }
         }
         return null;
+    }
+
+    private Collection<Node> find(Node node, Automaton matcher)
+    {
+        if (matcher.isWordAccepted())
+        {
+            return Arrays.asList(node);
+        }
+        else if (!matcher.isWordRejected())
+        {
+            List<Node> result = new LinkedList<Node>();
+            for (Entry<Character, Node> child : node.children.entrySet())
+            {
+                char character = child.getKey();
+                result.addAll(find(child.getValue(), matcher.step(character)));
+            }
+            return result;
+        }
+        return Collections.<Node>emptyList();
     }
 
     private boolean putAll(Node node, String key, Collection<V> values)
