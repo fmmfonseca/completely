@@ -38,14 +38,22 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     public Set<V> getAll(String key)
     {
         Node node = key != null ? find(root, key) : null;
-        return node != null ? Collections.unmodifiableSet(node.values) : Collections.<V>emptySet();
+        if (node != null)
+        {
+            return new HashSet<V>(node.values);
+        }
+        return new HashSet<V>();
     }
 
     @Override
     public Set<V> getAny(String fragment)
     {
         Node node = fragment != null ? find(root, fragment) : null;
-        return node != null ? Collections.unmodifiableSet(values(node)) : Collections.<V>emptySet();
+        if (node != null)
+        {
+            return values(node);
+        }
+        return new HashSet<V>();
     }
 
     @Override
@@ -59,7 +67,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
                 result.addAll(values(node));
             }
         }
-        return Collections.unmodifiableSet(result);
+        return result;
     }
 
     @Override
@@ -83,7 +91,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     @Override
     public Set<V> removeAll(String key)
     {
-        return key != null ? removeAll(root, key) : Collections.<V>emptySet();
+        return key != null ? removeAll(root, key) : new HashSet<V>();
     }
 
     @Override

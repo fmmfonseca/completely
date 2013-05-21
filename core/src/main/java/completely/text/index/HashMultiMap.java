@@ -1,7 +1,6 @@
 package completely.text.index;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,7 +32,11 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     public Set<V> getAll(String key)
     {
         Set<V> value = map.get(key);
-        return value != null ? Collections.unmodifiableSet(value) : Collections.<V>emptySet();
+        if (value != null)
+        {
+            return new HashSet<V>(value);
+        }
+        return new HashSet<V>();
     }
 
     @Override
@@ -78,7 +81,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     public Set<V> removeAll(String key)
     {
         Set<V> value = map.remove(key);
-        return value != null ? value : Collections.<V>emptySet();
+        return value != null ? value : new HashSet<V>();
     }
 
     @Override
