@@ -4,6 +4,7 @@ import completely.data.Indexable;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.FuzzyIndex;
 import completely.text.index.HashTrie;
+import completely.text.match.EditDistanceAutomaton;
 
 import java.io.Console;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public final class AutocompleteEngineSample
         @Override
         public Collection<SampleRecord> get(String token)
         {
-            return index.getAny(token);
+            return index.getAny(new EditDistanceAutomaton(token, Math.log(token.length())));
         }
 
         @Override
