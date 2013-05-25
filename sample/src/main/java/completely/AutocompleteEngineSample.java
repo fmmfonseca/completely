@@ -2,10 +2,12 @@ package completely;
 
 import completely.data.Indexable;
 import completely.text.analyze.transform.LowerCaseTransformer;
+import completely.text.index.FuzzyIndex;
 import completely.text.index.HashTrie;
 
 import java.io.Console;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public final class AutocompleteEngineSample
@@ -13,7 +15,7 @@ public final class AutocompleteEngineSample
     public static void main(String[] args)
     {
         AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()
-            .setIndex(new HashTrie<SampleRecord>())
+            .setIndex(new SampleAdapter())
             .setAnalyzer(new LowerCaseTransformer())
             .build();
 
@@ -54,6 +56,23 @@ public final class AutocompleteEngineSample
             {
                 console.printf("- %s%n", record.getName());
             }
+        }
+    }
+
+    private static class SampleAdapter implements IndexAdapter<SampleRecord>
+    {
+        private FuzzyIndex<SampleRecord> index = new HashTrie<SampleRecord>();
+
+        @Override
+        public Collection<SampleRecord> get(String token)
+        {
+            return index.getAny(token);
+        }
+
+        @Override
+        public boolean put(String token, SampleRecord value)
+        {
+            return index.put(token, value);
         }
     }
 
