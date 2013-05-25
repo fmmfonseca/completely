@@ -2,7 +2,6 @@ package completely;
 
 import completely.data.Indexable;
 import completely.text.analyze.Analyzer;
-import completely.text.index.FuzzyIndex;
 import completely.text.index.Index;
 
 import java.util.ArrayList;
@@ -194,27 +193,6 @@ public final class AutocompleteEngine<T extends Indexable>
                 public Collection<T> get(String token)
                 {
                     return index.getAll(token);
-                }
-
-                @Override
-                public boolean put(String token, T value)
-                {
-                    return index.put(token, value);
-                }
-            });
-        }
-
-        /**
-         * Set the index.
-         */
-        public Builder<T> setIndex(final FuzzyIndex<T> index)
-        {
-            return setIndex(new IndexAdapter<T>()
-            {
-                @Override
-                public Collection<T> get(String token)
-                {
-                    return index.getAny(token);
                 }
 
                 @Override
