@@ -10,7 +10,7 @@ public class EditDistanceAutomatonTest
     private Automaton automaton;
 
     @Test
-    public void testExactMatch()
+    public void testSingleCharacterExactMatch()
     {
         automaton = new EditDistanceAutomaton("a", 0D);
         assertFalse(automaton.isWordAccepted());
@@ -24,7 +24,7 @@ public class EditDistanceAutomatonTest
     }
 
     @Test
-    public void testFuzzyMatch()
+    public void testSingleCharacterFuzzyMatch()
     {
         automaton = new EditDistanceAutomaton("a", 1D);
         assertTrue(automaton.isWordAccepted());
@@ -39,4 +39,19 @@ public class EditDistanceAutomatonTest
         assertFalse(automaton.isWordAccepted());
         assertTrue(automaton.isWordRejected());
     }
+
+    @Test
+    public void testMultiCharacterFuzzyMatch()
+    {
+        automaton = new EditDistanceAutomaton("abc", 1D);
+        assertFalse(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+        automaton = automaton.step("bc");
+        assertTrue(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+        automaton = automaton.step("cd");
+        assertFalse(automaton.isWordAccepted());
+        assertTrue(automaton.isWordRejected());
+    }
+
 }
