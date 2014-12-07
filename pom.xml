@@ -33,6 +33,12 @@
     <reporting>
         <plugins>
             <plugin>
+                <!-- http://mojo.codehaus.org/cobertura-maven-plugin/ -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
                 <!-- http://mojo.codehaus.org/findbugs-maven-plugin/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
