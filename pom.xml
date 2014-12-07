@@ -34,15 +34,6 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>2.5.2</version>
             </plugin>
-            <plugin>
-                <!-- http://maven.apache.org/plugins/maven-pmd-plugin/ -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <targetJdk>1.6</targetJdk>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     <reporting>
@@ -62,6 +53,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>2.5</version>
+            </plugin>
+            <plugin>
+                <!-- http://maven.apache.org/plugins/maven-pmd-plugin/ -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <targetJdk>1.6</targetJdk>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
