@@ -4,6 +4,18 @@
 
 Autocomplete involves predicting a word or phrase that the user may type based on a partial query. The goal is to provide instant feeback and avoid unecessary typing as the user formulates queries. Performance is a key issue since each keystroke from the user could invoke a query, and each query should be answered within few milliseconds. *Completely* relies on text preprocessing to create an in-memory index data structure for efficiently answering searches.
 
+# Build from source
+
+Building *Completely* requires Maven 3 and Java 6, or newer.
+
+Download the source code:
+
+    git clone https://github.com/fmmfonseca/completely.git
+
+Build the JAR package:
+
+    mvn clean package -DskipTests
+
 # References
 
 * Bořivoj Melichar. Approximate String Matching by Finite Automata;

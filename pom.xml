@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     </properties>
     <build>
+        <finalName>${project.name}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
