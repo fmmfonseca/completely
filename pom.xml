@@ -29,12 +29,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- http://maven.apache.org/plugins/maven-jxr-plugin/ -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
-            <plugin>
                 <!-- http://mojo.codehaus.org/findbugs-maven-plugin/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -62,6 +56,12 @@
                     <configLocation>checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- http://maven.apache.org/plugins/maven-jxr-plugin/ -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
             </plugin>
         </plugins>
     </reporting>
