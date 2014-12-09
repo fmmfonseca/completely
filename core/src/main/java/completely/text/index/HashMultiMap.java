@@ -68,7 +68,10 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
         for (Iterator<Set<V>> iterator = map.values().iterator(); iterator.hasNext();)
         {
             Set<V> value = iterator.next();
-            result = value.removeAll(values) || result;
+            if (value.removeAll(values))
+            {
+                result = true;
+            }
             if (value.isEmpty())
             {
                 iterator.remove();

@@ -59,7 +59,10 @@ public final class AutocompleteEngine<T extends Indexable>
                 {
                     for (String token : analyzer.apply(field))
                     {
-                        result = index.put(token, element) || result;
+                        if (index.put(token, element))
+                        {
+                            result = true;
+                        }
                     }
                 }
             }

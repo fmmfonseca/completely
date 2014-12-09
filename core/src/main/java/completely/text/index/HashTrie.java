@@ -168,7 +168,10 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         for (Iterator<Node> iterator = node.children.values().iterator(); iterator.hasNext();)
         {
             Node child = iterator.next();
-            result = removeAll(child, values) || result;
+            if (removeAll(child, values))
+            {
+                result = true;
+            }
             if (child.isEmpty())
             {
                 iterator.remove();
