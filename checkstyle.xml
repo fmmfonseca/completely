@@ -55,7 +55,10 @@
         <module name="InterfaceIsType"/>
         <module name="MutableException"/>
         <!-- <module name="ThrowsCount"/> -->
-        <module name="VisibilityModifier"/>
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
 
         <!-- http://checkstyle.sourceforge.net/config_coding.html -->
         <module name="ArrayTrailingComma"/>
