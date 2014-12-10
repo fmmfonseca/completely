@@ -155,16 +155,6 @@ public final class AutocompleteEngine<T extends Indexable>
                     return new ArrayList<String>(input);
                 }
             };
-            this.comparator = new Comparator<T>()
-            {
-                @Override
-                public int compare(T o1, T o2)
-                {
-                    Double score1 = o1.getScore();
-                    Double score2 = o2.getScore();
-                    return score2.compareTo(score1);
-                }
-            };
         }
 
         /**
