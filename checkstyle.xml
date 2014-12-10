@@ -114,6 +114,7 @@
         <module name="IllegalImport"/>
         <!-- <module name="ImportControl"/> -->
         <module name="ImportOrder">
+            <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
         </module>
         <module name="RedundantImport"/>
