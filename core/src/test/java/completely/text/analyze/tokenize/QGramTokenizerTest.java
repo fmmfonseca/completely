@@ -1,19 +1,21 @@
 package completely.text.analyze.tokenize;
 
-import completely.text.analyze.Analyzer;
+import completely.text.analyze.AnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class QGramTokenizerTest
+public class QGramTokenizerTest extends AnalyzerTest<QGramTokenizer>
 {
-    private Analyzer analyzer;
+    public QGramTokenizerTest()
+    {
+        super(new QGramTokenizer(3));
+    }
 
     @Test
     public void testApply()
     {
-        analyzer = new QGramTokenizer(3);
         Object[] result = analyzer.apply("abcde").toArray();
         assertEquals(3, result.length);
         assertEquals("abc", result[0]);
@@ -24,8 +26,15 @@ public class QGramTokenizerTest
     @Test
     public void testApplyVoid()
     {
-        analyzer = new QGramTokenizer(3);
         Object[] result = analyzer.apply("ab").toArray();
         assertEquals(0, result.length);
+    }
+
+
+    @Test
+    public void testApplyNullElement()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        analyzer.apply((String) null);
     }
 }

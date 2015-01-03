@@ -1,18 +1,23 @@
 package completely.text.analyze.transform;
 
-import completely.text.analyze.Analyzer;
+import completely.text.analyze.AnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LowerCaseTransformerTest
+public class LowerCaseTransformerTest extends AnalyzerTest<LowerCaseTransformer>
 {
-    private Analyzer analyzer;
-
     public LowerCaseTransformerTest()
     {
-        analyzer = new LowerCaseTransformer();
+        super(new LowerCaseTransformer());
+    }
+
+    @Test
+    public void testCreateNullLocale()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        new LowerCaseTransformer(null);
     }
 
     @Test
@@ -20,5 +25,13 @@ public class LowerCaseTransformerTest
     {
         Object[] result = analyzer.apply("AbC").toArray();
         assertEquals("abc", result[0]);
+    }
+
+
+    @Test
+    public void testApplyNullElement()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        analyzer.apply((String) null);
     }
 }

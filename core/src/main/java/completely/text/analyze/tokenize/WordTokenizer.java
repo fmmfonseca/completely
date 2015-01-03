@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Break text into words.
  */
@@ -22,9 +24,11 @@ public class WordTokenizer extends Analyzer
     @Override
     public Collection<String> apply(Collection<String> input)
     {
+        checkPointer(input != null);
         List<String> result = new LinkedList<String>();
         for (String text : input)
         {
+            checkPointer(text != null);
             boundary.setText(text.toString());
             for (int start = boundary.first(), end = boundary.next(); end != BreakIterator.DONE; start = end, end = boundary.next())
             {

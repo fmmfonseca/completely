@@ -1,18 +1,16 @@
 package completely.text.analyze.tokenize;
 
-import completely.text.analyze.Analyzer;
+import completely.text.analyze.AnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WordTokenizerTest
+public class WordTokenizerTest extends AnalyzerTest<WordTokenizer>
 {
-    private Analyzer analyzer;
-
     public WordTokenizerTest()
     {
-        analyzer = new WordTokenizer();
+        super(new WordTokenizer());
     }
 
     @Test
@@ -28,5 +26,12 @@ public class WordTokenizerTest
         assertEquals("consectetur", result[5]);
         assertEquals("adipiscing", result[6]);
         assertEquals("elit", result[7]);
+    }
+
+    @Test
+    public void testApplyNullElement()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        analyzer.apply((String) null);
     }
 }

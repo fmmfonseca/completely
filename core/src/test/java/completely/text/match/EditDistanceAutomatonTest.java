@@ -5,9 +5,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class EditDistanceAutomatonTest
+public class EditDistanceAutomatonTest extends AutomatonTest<EditDistanceAutomaton>
 {
-    private Automaton automaton;
+    @Test
+    public void testCreateNullPattern()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        new EditDistanceAutomaton(null, 0D);
+    }
 
     @Test
     public void testSingleCharacterExactMatch()

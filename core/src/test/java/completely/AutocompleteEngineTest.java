@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,13 +17,24 @@ import static org.junit.Assert.assertTrue;
 
 public class AutocompleteEngineTest
 {
+    @Rule
+    public ExpectedException exceptionRule;
+
     private AutocompleteEngine<TestRecord> engine;
 
     public AutocompleteEngineTest()
     {
-        engine = new AutocompleteEngine.Builder<TestRecord>()
+        this.exceptionRule = ExpectedException.none();
+        this.engine = new AutocompleteEngine.Builder<TestRecord>()
             .setIndex(new HashMultiMap<TestRecord>())
             .build();
+    }
+
+    @Test
+    public void testCreateEmpty()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        new AutocompleteEngine.Builder<TestRecord>().build();
     }
 
     @Test
@@ -30,6 +43,20 @@ public class AutocompleteEngineTest
         TestRecord record = new TestRecord(0, "a");
         assertTrue(engine.add(record));
         assertFalse(engine.add(record));
+    }
+
+    @Test
+    public void testAddNull()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        engine.add(null);
+    }
+
+    @Test
+    public void testAddAllNull()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        engine.addAll(null);
     }
 
     @Test
@@ -54,7 +81,7 @@ public class AutocompleteEngineTest
     }
 
     @Test
-    public void testSearchCustomSort()
+    public void testSearchCustomComparator()
     {
         Comparator<TestRecord> comparator = new Comparator<TestRecord>()
         {
@@ -77,7 +104,7 @@ public class AutocompleteEngineTest
     }
 
     @Test
-    public void testSearchNoSort()
+    public void testSearchNullComparator()
     {
         engine.add(new TestRecord(0, "a"));
         engine.add(new TestRecord(1, "a"));

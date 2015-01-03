@@ -11,11 +11,15 @@ public interface FuzzyIndex<V> extends Index<V>
 {
     /**
      * Returns a {@link Set} of all values associated with a key fragment.
+     *
+     * @throws NullPointerException if {@code fragment} is null;
      */
     Set<V> getAny(String fragment);
 
     /**
      * Returns a {@link Set} of all values associated with a key matcher.
+     *
+     * @throws NullPointerException if {@code matcher} is null;
      */
     Set<V> getAny(Automaton matcher);
 }

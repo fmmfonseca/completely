@@ -6,12 +6,12 @@ package completely.text.match;
 public interface Automaton
 {
     /**
-     * Returns <tt>true</tt> if the word is accepted.
+     * Returns {@code true} if the word is accepted.
      */
     boolean isWordAccepted();
 
     /**
-     * Returns <tt>true</tt> if the word is rejected.
+     * Returns {@code true} if the word is rejected.
      */
     boolean isWordRejected();
 
@@ -21,12 +21,14 @@ public interface Automaton
     String getPattern();
 
     /**
-     * Returns a new <tt>automaton</tt> transitioned to another state.
+     * Returns a new automaton transitioned to another state.
      */
     Automaton step(char symbol);
 
     /**
-     * Returns a new <tt>automaton</tt> transitioned to another state.
+     * Returns a new automaton transitioned to another state.
+     *
+     * @throws NullPointerException if {@code symbols} is null;
      */
     Automaton step(String symbols);
 }

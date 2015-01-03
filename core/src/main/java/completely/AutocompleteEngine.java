@@ -15,6 +15,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Facade for indexing and searching {@link Indexable} elements.
  */
@@ -38,6 +40,8 @@ public final class AutocompleteEngine<T extends Indexable>
 
     /**
      * Indexes a single element.
+     *
+     * @throws NullPointerException if {@code element} is null;
      */
     public boolean add(T element)
     {
@@ -46,12 +50,16 @@ public final class AutocompleteEngine<T extends Indexable>
 
     /**
      * Indexes a collection of elements.
+     *
+     * @throws NullPointerException if {@code elements} is null or contains a null element;
      */
     public boolean addAll(Collection<T> elements)
     {
+        checkPointer(elements != null);
         boolean result = false;
         for (T element : elements)
         {
+            checkPointer(element != null);
             write.lock();
             try
             {
@@ -177,9 +185,12 @@ public final class AutocompleteEngine<T extends Indexable>
 
         /**
          * Set the index.
+         *
+         * @throws NullPointerException if {@code index} is null;
          */
         public Builder<T> setIndex(final Index<T> index)
         {
+            checkPointer(index != null);
             return setIndex(new IndexAdapter<T>()
             {
                 @Override
@@ -208,9 +219,13 @@ public final class AutocompleteEngine<T extends Indexable>
         /**
          * Returns a new {@link AutocompleteEngine} parameterized according to
          * the builder.
+         *
+         * @throws NullPointerException if {@code analyzer} or {@code index} are null;
          */
         public AutocompleteEngine<T> build()
         {
+            checkPointer(analyzer != null);
+            checkPointer(index != null);
             return new AutocompleteEngine<T>(this);
         }
     }

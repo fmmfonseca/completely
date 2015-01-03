@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Strip text diacritics.
  */
@@ -15,9 +17,11 @@ public class DiacriticsTransformer extends Analyzer
     @Override
     public Collection<String> apply(Collection<String> input)
     {
+        checkPointer(input != null);
         List<String> result = new LinkedList<String>();
         for (String text : input)
         {
+            checkPointer(text != null);
             StringBuilder builder = new StringBuilder();
             String canonical = Normalizer.normalize(text, Normalizer.Form.NFD);
             for (int i = 0; i < canonical.length(); ++i)

@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Trie based implementation of the {@link FuzzyIndex} interface.
  *
@@ -37,7 +39,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     @Override
     public Set<V> getAll(String key)
     {
-        Node node = key != null ? find(root, key) : null;
+        checkPointer(key != null);
+        Node node = find(root, key);
         if (node != null)
         {
             return new HashSet<V>(node.values);
@@ -48,7 +51,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     @Override
     public Set<V> getAny(String fragment)
     {
-        Node node = fragment != null ? find(root, fragment) : null;
+        checkPointer(fragment != null);
+        Node node = find(root, fragment);
         if (node != null)
         {
             return values(node);
@@ -59,13 +63,11 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     @Override
     public Set<V> getAny(Automaton matcher)
     {
+        checkPointer(matcher != null);
         Set<V> result = new HashSet<V>();
-        if (matcher != null)
+        for (Node node : find(root, matcher))
         {
-            for (Node node : find(root, matcher))
-            {
-                result.addAll(values(node));
-            }
+            result.addAll(values(node));
         }
         return result;
     }
@@ -79,25 +81,31 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     @Override
     public boolean putAll(String key, Collection<V> values)
     {
-        return key != null ? putAll(root, key, values) : false;
+        checkPointer(key != null);
+        checkPointer(values != null);
+        return putAll(root, key, values);
     }
 
     @Override
     public boolean removeAll(Collection<V> values)
     {
+        checkPointer(values != null);
         return removeAll(root, values);
     }
 
     @Override
     public Set<V> removeAll(String key)
     {
-        return key != null ? removeAll(root, key) : new HashSet<V>();
+        checkPointer(key != null);
+        return removeAll(root, key);
     }
 
     @Override
     public boolean removeAll(String key, Collection<V> values)
     {
-        return key != null ? removeAll(root, key, values) : false;
+        checkPointer(key != null);
+        checkPointer(values != null);
+        return removeAll(root, key, values);
     }
 
     @Override

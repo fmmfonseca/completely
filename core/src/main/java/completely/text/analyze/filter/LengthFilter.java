@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Exclude text with length outside boundaries.
  */
@@ -22,9 +24,11 @@ public class LengthFilter extends Analyzer
     @Override
     public Collection<String> apply(Collection<String> input)
     {
+        checkPointer(input != null);
         List<String> result = new LinkedList<String>();
         for (String text : input)
         {
+            checkPointer(text != null);
             if (text.length() >= min && text.length() <= max)
             {
                 result.add(text);

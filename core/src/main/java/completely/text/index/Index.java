@@ -15,26 +15,34 @@ public interface Index<V>
 
     /**
      * Returns a {@link Set} of all values associated with a key.
+     *
+     * @throws NullPointerException if {@code key} is null;
      */
     Set<V> getAll(String key);
 
     /**
-     * Returns <tt>true</tt> if no key-value associations exist.
+     * Returns {@code true} if no key-value associations exist.
      */
     boolean isEmpty();
 
     /**
      * Associates a single value with a key.
+     *
+     * @throws NullPointerException if {@code key} is null;
      */
     boolean put(String key, V value);
 
     /**
      * Associates a collection of values with a key.
+     *
+     * @throws NullPointerException if {@code key} or {@code values} are null;
      */
     boolean putAll(String key, Collection<V> values);
 
     /**
      * Removes a single value associated with a key.
+     *
+     * @throws NullPointerException if {@code key} is null;
      */
     boolean remove(String key, V value);
 
@@ -45,16 +53,22 @@ public interface Index<V>
 
     /**
      * Removes a collection of values associated with any keys.
+     *
+     * @throws NullPointerException if {@code values} is null;
      */
     boolean removeAll(Collection<V> values);
 
     /**
      * Removes all values associated with a key.
+     *
+     * @throws NullPointerException if {@code key} is null;
      */
     Set<V> removeAll(String key);
 
     /**
      * Removes a collection of values associated with a key.
+     *
+     * @throws NullPointerException if {@code key} or {@code values} are null;
      */
     boolean removeAll(String key, Collection<V> values);
 

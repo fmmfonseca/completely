@@ -2,7 +2,9 @@ package completely.text.index;
 
 import java.util.Collection;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,10 +12,14 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class IndexTest<T extends Index<Object>>
 {
+    @Rule
+    public ExpectedException exceptionRule;
+
     protected T index;
 
     public IndexTest(T index)
     {
+        this.exceptionRule = ExpectedException.none();
         this.index = index;
     }
 
@@ -34,7 +40,7 @@ public abstract class IndexTest<T extends Index<Object>>
     }
 
     @Test
-    public void testGet()
+    public void testGetAll()
     {
         index.put("abc", 0);
         index.put("abc", 1);
@@ -45,7 +51,7 @@ public abstract class IndexTest<T extends Index<Object>>
     }
 
     @Test
-    public void testGetInexistent()
+    public void testGetAllInexistent()
     {
         assertTrue(index.getAll("abc").isEmpty());
         index.put("abcd", 0);
@@ -53,9 +59,10 @@ public abstract class IndexTest<T extends Index<Object>>
     }
 
     @Test
-    public void testGetNullKey()
+    public void testGetAllNull()
     {
-        assertTrue(index.getAll(null).isEmpty());
+        exceptionRule.expect(NullPointerException.class);
+        index.getAll(null);
     }
 
     @Test
@@ -86,7 +93,8 @@ public abstract class IndexTest<T extends Index<Object>>
     @Test
     public void testPutNullKey()
     {
-        assertFalse(index.put(null, 0));
+        exceptionRule.expect(NullPointerException.class);
+        index.put(null, 0);
     }
 
     @Test
@@ -97,25 +105,10 @@ public abstract class IndexTest<T extends Index<Object>>
     }
 
     @Test
-    public void testRemoveKey()
+    public void testPutAllNullValues()
     {
-        index.put("abc", 0);
-        index.put("abcd", 0);
-        assertEquals(1, index.removeAll("abc").size());
-    }
-
-    @Test
-    public void testRemoveInexistentKey()
-    {
-        assertTrue(index.removeAll("abc").isEmpty());
-        index.put("abcd", 0);
-        assertTrue(index.removeAll("abc").isEmpty());
-    }
-
-    @Test
-    public void testRemoveNullKey()
-    {
-        assertTrue(index.removeAll((String) null).isEmpty());
+        exceptionRule.expect(NullPointerException.class);
+        index.putAll("abc", null);
     }
 
     @Test
@@ -164,5 +157,35 @@ public abstract class IndexTest<T extends Index<Object>>
         assertEquals(1, index.size());
         assertTrue(index.remove(null));
         assertEquals(0, index.size());
+    }
+
+    @Test
+    public void testRemoveAllKey()
+    {
+        index.put("abc", 0);
+        index.put("abcd", 0);
+        assertEquals(1, index.removeAll("abc").size());
+    }
+
+    @Test
+    public void testRemoveAllInexistentKey()
+    {
+        assertTrue(index.removeAll("abc").isEmpty());
+        index.put("abcd", 0);
+        assertTrue(index.removeAll("abc").isEmpty());
+    }
+
+    @Test
+    public void testRemoveAllNullKey()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        index.removeAll((String) null);
+    }
+
+    @Test
+    public void testRemoveAllNullValues()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        index.removeAll((Collection) null);
     }
 }

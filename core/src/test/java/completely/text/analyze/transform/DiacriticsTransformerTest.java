@@ -1,18 +1,16 @@
 package completely.text.analyze.transform;
 
-import completely.text.analyze.Analyzer;
+import completely.text.analyze.AnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DiacriticsTransformerTest
+public class DiacriticsTransformerTest extends AnalyzerTest<DiacriticsTransformer>
 {
-    private Analyzer analyzer;
-
     public DiacriticsTransformerTest()
     {
-        analyzer = new DiacriticsTransformer();
+        super(new DiacriticsTransformer());
     }
 
     @Test
@@ -20,5 +18,12 @@ public class DiacriticsTransformerTest
     {
         Object[] result = analyzer.apply("àbç").toArray();
         assertEquals("abc", result[0]);
+    }
+
+    @Test
+    public void testApplyNullElement()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        analyzer.apply((String) null);
     }
 }

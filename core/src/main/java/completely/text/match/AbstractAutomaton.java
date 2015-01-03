@@ -1,5 +1,7 @@
 package completely.text.match;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Skeletal implementation of the {@link Automaton} interface.
  */
@@ -7,8 +9,12 @@ public abstract class AbstractAutomaton implements Automaton
 {
     protected final String pattern;
 
-    public AbstractAutomaton(String pattern)
+    /**
+     * @throws NullPointerException if {@code pattern} is null;
+     */
+    protected AbstractAutomaton(String pattern)
     {
+        checkPointer(pattern != null);
         this.pattern = pattern;
     }
 
@@ -18,9 +24,13 @@ public abstract class AbstractAutomaton implements Automaton
         return pattern;
     }
 
+    /**
+     * @throws NullPointerException if {@code symbols} is null;
+     */
     @Override
     public Automaton step(String symbols)
     {
+        checkPointer(symbols != null);
         if (symbols.length() <= 0)
         {
             return this;

@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import static completely.common.Precondition.checkPointer;
+
 /**
  * Hashing based implementation of the {@link Index} interface.
  *
@@ -31,6 +33,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     @Override
     public Set<V> getAll(String key)
     {
+        checkPointer(key != null);
         Set<V> value = map.get(key);
         if (value != null)
         {
@@ -48,10 +51,8 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     @Override
     public boolean putAll(String key, Collection<V> values)
     {
-        if (key == null)
-        {
-            return false;
-        }
+        checkPointer(key != null);
+        checkPointer(values != null);
         Set<V> value = map.get(key);
         if (value == null)
         {
@@ -64,6 +65,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     @Override
     public boolean removeAll(Collection<V> values)
     {
+        checkPointer(values != null);
         boolean result = false;
         for (Iterator<Set<V>> iterator = map.values().iterator(); iterator.hasNext();)
         {
@@ -83,6 +85,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     @Override
     public Set<V> removeAll(String key)
     {
+        checkPointer(key != null);
         Set<V> value = map.remove(key);
         return value != null ? value : new HashSet<V>();
     }
@@ -90,6 +93,8 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     @Override
     public boolean removeAll(String key, Collection<V> values)
     {
+        checkPointer(key != null);
+        checkPointer(values != null);
         Set<V> value = map.get(key);
         if (value != null)
         {
