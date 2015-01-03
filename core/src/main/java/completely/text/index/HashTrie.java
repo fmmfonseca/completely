@@ -116,6 +116,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private Node find(Node node, String key)
     {
+        assert node != null;
+        assert key != null;
         if (key.length() <= 0)
         {
             return node;
@@ -134,6 +136,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private Collection<Node> find(Node node, Automaton matcher)
     {
+        assert node != null;
+        assert matcher != null;
         if (matcher.isWordAccepted())
         {
             return Arrays.asList(node);
@@ -153,6 +157,9 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private boolean putAll(Node node, String key, Collection<V> values)
     {
+        assert node != null;
+        assert key != null;
+        assert values != null;
         if (key.length() <= 0)
         {
             return node.values.addAll(values);
@@ -172,6 +179,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private boolean removeAll(Node node, Collection<V> values)
     {
+        assert node != null;
+        assert values != null;
         boolean result = node.values.removeAll(values);
         for (Iterator<Node> iterator = node.children.values().iterator(); iterator.hasNext();)
         {
@@ -190,6 +199,8 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private Set<V> removeAll(Node node, String key)
     {
+        assert node != null;
+        assert key != null;
         if (key.length() <= 0)
         {
             Set<V> result = node.values;
@@ -215,6 +226,9 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private boolean removeAll(Node node, String key, Collection<V> values)
     {
+        assert node != null;
+        assert key != null;
+        assert values != null;
         if (key.length() <= 0)
         {
             return node.values.removeAll(values);
@@ -238,6 +252,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private int size(Node node)
     {
+        assert node != null;
         int result = node.values.size();
         for (Node child : node.children.values())
         {
@@ -248,6 +263,7 @@ public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private Set<V> values(Node node)
     {
+        assert node != null;
         Set<V> result = new HashSet<V>(node.values);
         for (Node child : node.children.values())
         {

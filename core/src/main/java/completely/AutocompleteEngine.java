@@ -30,6 +30,7 @@ public final class AutocompleteEngine<T extends Indexable>
 
     private AutocompleteEngine(Builder<T> builder)
     {
+        assert builder != null;
         this.analyzer = builder.analyzer;
         this.comparator = builder.comparator;
         this.index = builder.index;
