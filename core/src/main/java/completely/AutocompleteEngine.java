@@ -15,6 +15,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.Nullable;
+
 import static completely.common.Precondition.checkPointer;
 
 /**
@@ -87,7 +89,7 @@ public final class AutocompleteEngine<T extends Indexable>
      * Returns a {@link List} of all elements that match a query, sorted
      * according to the default comparator.
      */
-    public List<T> search(String query)
+    public List<T> search(@Nullable String query)
     {
         return search(query, comparator);
     }
@@ -96,7 +98,7 @@ public final class AutocompleteEngine<T extends Indexable>
      * Returns a {@link List} of all elements that match a query, sorted
      * according to the specified comparator.
      */
-    public List<T> search(String query, Comparator<T> comparator)
+    public List<T> search(@Nullable String query, @Nullable Comparator<T> comparator)
     {
         read.lock();
         try
@@ -126,7 +128,7 @@ public final class AutocompleteEngine<T extends Indexable>
     /**
      * Returns a {@link List} of the top elements that match a query.
      */
-    public List<T> search(String query, int limit)
+    public List<T> search(@Nullable String query, int limit)
     {
         return search(query, comparator, limit);
     }
@@ -135,7 +137,7 @@ public final class AutocompleteEngine<T extends Indexable>
      * Returns a {@link List} of the top elements that match a query, sorted
      * according to the specified comparator.
      */
-    public List<T> search(String query, Comparator<T> comparator, int limit)
+    public List<T> search(@Nullable String query, @Nullable Comparator<T> comparator, int limit)
     {
         List<T> result = search(query, comparator);
         if (result.size() > limit)
@@ -178,7 +180,7 @@ public final class AutocompleteEngine<T extends Indexable>
         /**
          * Set the comparator.
          */
-        public Builder<T> setComparator(Comparator<T> comparator)
+        public Builder<T> setComparator(@Nullable Comparator<T> comparator)
         {
             this.comparator = comparator;
             return this;

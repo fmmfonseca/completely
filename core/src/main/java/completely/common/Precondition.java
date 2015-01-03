@@ -1,5 +1,7 @@
 package completely.common;
 
+import javax.annotation.Nullable;
+
 /**
  * Condition that must be true prior to a routine's execution.
  */
@@ -25,7 +27,7 @@ public final class Precondition
      *
      * @throws IllegalArgumentException if {@code expression} is false;
      */
-    public static void checkArgument(boolean expression, String message)
+    public static void checkArgument(boolean expression, @Nullable String message)
     {
         if (!expression)
         {
@@ -51,7 +53,7 @@ public final class Precondition
      *
      * @throws ArithmeticException if {@code expression} is false;
      */
-    public static void checkArithmetic(boolean expression, String message)
+    public static void checkArithmetic(boolean expression, @Nullable String message)
     {
         if (!expression)
         {
@@ -77,7 +79,7 @@ public final class Precondition
      *
      * @throws IndexOutOfBoundsException if {@code expression} is false;
      */
-    public static void checkIndex(boolean expression, String message)
+    public static void checkIndex(boolean expression, @Nullable String message)
     {
         if (!expression)
         {
@@ -103,7 +105,7 @@ public final class Precondition
      *
      * @throws NullPointerException if {@code expression} is false;
      */
-    public static void checkPointer(boolean expression, String message)
+    public static void checkPointer(boolean expression, @Nullable String message)
     {
         if (!expression)
         {
@@ -129,7 +131,7 @@ public final class Precondition
      *
      * @throws IllegalStateException if {@code expression} is false;
      */
-    public static void checkState(boolean expression, String message)
+    public static void checkState(boolean expression, @Nullable String message)
     {
         if (!expression)
         {

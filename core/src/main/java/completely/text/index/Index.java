@@ -3,6 +3,8 @@ package completely.text.index;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 /**
  * Data structure that maps text keys to multiple values.
  */
@@ -30,7 +32,7 @@ public interface Index<V>
      *
      * @throws NullPointerException if {@code key} is null;
      */
-    boolean put(String key, V value);
+    boolean put(String key, @Nullable V value);
 
     /**
      * Associates a collection of values with a key.
@@ -44,12 +46,12 @@ public interface Index<V>
      *
      * @throws NullPointerException if {@code key} is null;
      */
-    boolean remove(String key, V value);
+    boolean remove(String key, @Nullable V value);
 
     /**
      * Removes a single value associated with any keys.
      */
-    boolean remove(V value);
+    boolean remove(@Nullable V value);
 
     /**
      * Removes a collection of values associated with any keys.
