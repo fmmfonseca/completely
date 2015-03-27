@@ -16,6 +16,16 @@ Build the JAR package:
 
     mvn clean package -DskipTests
 
+# Run the sample
+
+Install artifacts to the local repository:
+
+    mvn install
+
+Execute the main class:
+
+    mvn exec:java -pl sample
+
 # References
 
 * Bořivoj Melichar. Approximate String Matching by Finite Automata;
