@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("checkstyle:multiplestringliterals")
 public class NullFilterTest extends AnalyzerTest<NullFilter>
 {
     public NullFilterTest()

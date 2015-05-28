@@ -15,9 +15,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("checkstyle:multiplestringliterals")
 public class AutocompleteEngineTest
 {
     @Rule
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public ExpectedException exceptionRule;
 
     private AutocompleteEngine<TestRecord> engine;

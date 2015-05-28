@@ -13,6 +13,9 @@ import java.util.List;
 
 public final class AutocompleteEngineSample
 {
+    @SuppressWarnings("checkstyle:leftcurly")
+    private AutocompleteEngineSample() { }
+
     public static void main(String[] args)
     {
         AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()

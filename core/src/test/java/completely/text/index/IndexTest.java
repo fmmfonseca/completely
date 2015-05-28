@@ -10,9 +10,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("checkstyle:multiplestringliterals")
 public abstract class IndexTest<T extends Index<Object>>
 {
     @Rule
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public ExpectedException exceptionRule;
 
     protected T index;

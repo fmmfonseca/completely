@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 public class PreconditionTest
 {
     @Rule
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public ExpectedException exceptionRule;
 
     public PreconditionTest()

@@ -27,6 +27,9 @@
     <!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
     <module name="FileTabCharacter"/>
 
+    <!-- http://checkstyle.sourceforge.net/config.html#SuppressWarningsFilter -->
+    <module name="SuppressWarningsFilter" />
+
     <!-- http://checkstyle.sourceforge.net/config.html#TreeWalker -->
     <module name="TreeWalker">
         <!-- http://checkstyle.sourceforge.net/config_annotation.html -->
@@ -35,6 +38,7 @@
         <module name="MissingOverride"/>
         <module name="PackageAnnotation"/>
         <!-- <module name="SuppressWarnings"/> -->
+        <module name="SuppressWarningsHolder"/>
 
         <!-- http://checkstyle.sourceforge.net/config_blocks.html -->
         <module name="AvoidNestedBlocks"/>

@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 public abstract class AnalyzerTest<T extends Analyzer>
 {
     @Rule
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public ExpectedException exceptionRule;
 
     protected Analyzer analyzer;

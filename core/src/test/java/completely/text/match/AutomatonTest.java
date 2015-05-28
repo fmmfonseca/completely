@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 public abstract class AutomatonTest<T extends Automaton>
 {
     @Rule
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     public ExpectedException exceptionRule;
 
     protected Automaton automaton;

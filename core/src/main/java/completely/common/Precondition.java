@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
  */
 public final class Precondition
 {
+    @SuppressWarnings("checkstyle:leftcurly")
     private Precondition() { };
 
     /**
