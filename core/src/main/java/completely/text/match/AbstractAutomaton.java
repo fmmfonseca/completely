@@ -40,4 +40,21 @@ public abstract class AbstractAutomaton implements Automaton
             return step(symbols.charAt(0)).step(symbols.substring(1));
         }
     }
+
+    /**
+     * @throws NullPointerException if {@code symbols} is null;
+     */
+    @Override
+    public Automaton stepUntilWordAccepted(String symbols)
+    {
+        checkPointer(symbols != null);
+        if (symbols.length() <= 0 || isWordAccepted())
+        {
+            return this;
+        }
+        else
+        {
+            return step(symbols.charAt(0)).stepUntilWordAccepted(symbols.substring(1));
+        }
+    }
 }

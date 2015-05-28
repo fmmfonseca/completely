@@ -1,7 +1,10 @@
 package completely.text.index;
 
+import completely.common.Strings;
 import completely.text.match.Automaton;
+import completely.text.match.EqualityAutomaton;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,11 +24,11 @@ import static completely.common.Precondition.checkPointer;
  *
  * <p>Note that this implementation is not synchronized.
  */
-public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
+public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 {
     private Node root;
 
-    public Trie()
+    public PatriciaTrie()
     {
         root = new Node();
     }
@@ -52,12 +55,12 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     public Set<V> getAny(String fragment)
     {
         checkPointer(fragment != null);
-        Node node = find(root, fragment);
-        if (node != null)
+        Set<V> result = new HashSet<V>();
+        for (Node node : findAll(root, new EqualityAutomaton(fragment)))
         {
-            return values(node);
+            result.addAll(values(node));
         }
-        return new HashSet<V>();
+        return result;
     }
 
     @Override
@@ -124,11 +127,16 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else
         {
-            char edge = key.charAt(0);
-            Node child = node.children.get(edge);
-            if (child != null)
+            for (Entry<String, Node> entry : node.children.entrySet())
             {
-                return find(child, key.substring(1));
+                String edge = entry.getKey();
+                Node child = entry.getValue();
+                int commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
+                // Exact match
+                if (commonPrefixLength >= edge.length())
+                {
+                    return find(child, key.substring(commonPrefixLength));
+                }
             }
         }
         return null;
@@ -145,10 +153,10 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         else if (!matcher.isWordRejected())
         {
             List<Node> result = new LinkedList<Node>();
-            for (Entry<Character, Node> child : node.children.entrySet())
+            for (Entry<String, Node> entry : node.children.entrySet())
             {
-                char edge = child.getKey();
-                result.addAll(findAll(child.getValue(), matcher.step(edge)));
+                String edge = entry.getKey();
+                result.addAll(findAll(entry.getValue(), matcher.stepUntilWordAccepted(edge)));
             }
             return result;
         }
@@ -166,14 +174,32 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else
         {
-            char edge = key.charAt(0);
-            Node child = node.children.get(edge);
+            Node child = null;
+            int commonPrefixLength = 0;
+            for (Entry<String, Node> entry : node.children.entrySet())
+            {
+                String edge = entry.getKey();
+                commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
+                // Exact match
+                if (commonPrefixLength >= edge.length())
+                {
+                    child = entry.getValue();
+                    break;
+                }
+                // Prefix match
+                else if (commonPrefixLength > 0)
+                {
+                    child = node.bisect(edge, commonPrefixLength);
+                    break;
+                }
+            }
             if (child == null)
             {
                 child = new Node();
-                node.children.put(edge, child);
+                commonPrefixLength = key.length();
+                node.children.put(key, child);
             }
-            return putAll(child, key.substring(1), values);
+            return putAll(child, key.substring(commonPrefixLength), values);
         }
     }
 
@@ -182,9 +208,12 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert node != null;
         assert values != null;
         boolean result = node.values.removeAll(values);
-        for (Iterator<Node> iterator = node.children.values().iterator(); iterator.hasNext();)
+        List<String> legacyEdges = new ArrayList<String>();
+        for (Iterator<Entry<String, Node>> iterator = node.children.entrySet().iterator(); iterator.hasNext();)
         {
-            Node child = iterator.next();
+            Entry<String, Node> entry = iterator.next();
+            String edge = entry.getKey();
+            Node child = entry.getValue();
             if (removeAll(child, values))
             {
                 result = true;
@@ -193,6 +222,14 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             {
                 iterator.remove();
             }
+            else if (child.isUnary())
+            {
+                legacyEdges.add(edge);
+            }
+        }
+        for (String edge : legacyEdges)
+        {
+            node.squash(edge);
         }
         return result;
     }
@@ -209,16 +246,25 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else
         {
-            char edge = key.charAt(0);
-            Node child = node.children.get(edge);
-            if (child != null)
+            for (Entry<String, Node> entry : node.children.entrySet())
             {
-                Set<V> result = removeAll(child, key.substring(1));
-                if (child.isEmpty())
+                String edge = entry.getKey();
+                int commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
+                // Exact match
+                if (commonPrefixLength >= edge.length())
                 {
-                    node.children.remove(edge);
+                    Node child = entry.getValue();
+                    Set<V> result = removeAll(child, key.substring(commonPrefixLength));
+                    if (child.isEmpty())
+                    {
+                        node.children.remove(edge);
+                    }
+                    else if (child.isUnary())
+                    {
+                        node.squash(edge);
+                    }
+                    return result;
                 }
-                return result;
             }
         }
         return Collections.<V>emptySet();
@@ -235,16 +281,25 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else
         {
-            char edge = key.charAt(0);
-            Node child = node.children.get(edge);
-            if (child != null)
+            for (Entry<String, Node> entry : node.children.entrySet())
             {
-                boolean result = removeAll(child, key.substring(1), values);
-                if (child.isEmpty())
+                String edge = entry.getKey();
+                int commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
+                // Exact match
+                if (commonPrefixLength >= edge.length())
                 {
-                    node.children.remove(edge);
+                    Node child = entry.getValue();
+                    boolean result = removeAll(child, key.substring(commonPrefixLength), values);
+                    if (child.isEmpty())
+                    {
+                        node.children.remove(edge);
+                    }
+                    else if (child.isUnary())
+                    {
+                        node.squash(edge);
+                    }
+                    return result;
                 }
-                return result;
             }
         }
         return false;
@@ -274,18 +329,46 @@ public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
     private class Node
     {
-        private Map<Character, Node> children;
+        private Map<String, Node> children;
         private Set<V> values;
 
         Node()
         {
-            children = new HashMap<Character, Node>();
+            children = new HashMap<String, Node>();
             values = new HashSet<V>();
+        }
+
+        Node bisect(String key, int pivot)
+        {
+            assert key != null;
+            String prefix = key.substring(0, pivot);
+            String suffix = key.substring(pivot);
+            Node child = new Node();
+            child.children.put(suffix, children.remove(key));
+            children.put(prefix, child);
+            return child;
         }
 
         boolean isEmpty()
         {
             return children.isEmpty() && values.isEmpty();
+        }
+
+        boolean isUnary()
+        {
+            return values.isEmpty() && children.size() == 1;
+        }
+
+        Node squash(String key)
+        {
+            assert key != null;
+            Node child = children.remove(key);
+            for (Entry<String, Node> entry : child.children.entrySet())
+            {
+                String edge = entry.getKey();
+                children.put(key.concat(edge), child.children.remove(edge));
+            }
+            return child;
         }
     }
 }
