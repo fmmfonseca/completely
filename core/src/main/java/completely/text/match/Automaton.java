@@ -31,4 +31,11 @@ public interface Automaton
      * @throws NullPointerException if {@code symbols} is null;
      */
     Automaton step(String symbols);
+
+    /**
+     * Returns a new automaton transitioned to another state.
+     *
+     * @throws NullPointerException if {@code symbols} is null;
+     */
+    Automaton stepUntilWordAccepted(String symbols);
 }
