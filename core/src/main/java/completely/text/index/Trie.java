@@ -21,11 +21,11 @@ import static completely.common.Precondition.checkPointer;
  *
  * <p>Note that this implementation is not synchronized.
  */
-public class HashTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
+public class Trie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 {
     private Node root;
 
-    public HashTrie()
+    public Trie()
     {
         root = new Node();
     }

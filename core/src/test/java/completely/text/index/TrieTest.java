@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class HashTrieTest extends IndexTest<HashTrie<Object>>
+public class TrieTest extends IndexTest<Trie<Object>>
 {
-    public HashTrieTest()
+    public TrieTest()
     {
-        super(new HashTrie<Object>());
+        super(new Trie<Object>());
     }
 
     @Test
