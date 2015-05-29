@@ -6,7 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
-public class EditDistanceAutomatonTest extends AutomatonTest<EditDistanceAutomaton>
+public class EditDistanceAutomatonTest extends AbstractAutomatonTest<EditDistanceAutomaton>
 {
     @Test
     public void testCreateNullPattern()

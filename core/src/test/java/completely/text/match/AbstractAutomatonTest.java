@@ -3,7 +3,7 @@ package completely.text.match;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-public abstract class AutomatonTest<T extends Automaton>
+public abstract class AbstractAutomatonTest<T extends Automaton>
 {
     @Rule
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -11,7 +11,7 @@ public abstract class AutomatonTest<T extends Automaton>
 
     protected Automaton automaton;
 
-    public AutomatonTest()
+    public AbstractAutomatonTest()
     {
         this.exceptionRule = ExpectedException.none();
     }

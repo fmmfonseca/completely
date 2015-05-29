@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class EqualityAutomatonTest extends AutomatonTest<EqualityAutomaton>
+public class EqualityAutomatonTest extends AbstractAutomatonTest<EqualityAutomaton>
 {
     @Test
     public void testCreateNullPattern()
