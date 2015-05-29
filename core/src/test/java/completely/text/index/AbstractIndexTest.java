@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
-public abstract class IndexTest<T extends Index<Object>>
+public abstract class AbstractIndexTest<T extends Index<Object>>
 {
     @Rule
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -19,7 +19,7 @@ public abstract class IndexTest<T extends Index<Object>>
 
     protected T index;
 
-    public IndexTest(T index)
+    public AbstractIndexTest(T index)
     {
         this.exceptionRule = ExpectedException.none();
         this.index = index;

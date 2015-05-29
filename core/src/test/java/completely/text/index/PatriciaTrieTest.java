@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PatriciaTrieTest extends IndexTest<PatriciaTrie<Object>>
+public class PatriciaTrieTest extends AbstractIndexTest<PatriciaTrie<Object>>
 {
     public PatriciaTrieTest()
     {

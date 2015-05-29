@@ -1,6 +1,6 @@
 package completely.text.index;
 
-public class HashMultiMapTest extends IndexTest<HashMultiMap<Object>>
+public class HashMultiMapTest extends AbstractIndexTest<HashMultiMap<Object>>
 {
     public HashMultiMapTest()
     {
