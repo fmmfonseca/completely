@@ -1,13 +1,13 @@
 package completely.text.analyze.filter;
 
-import completely.text.analyze.AnalyzerTest;
+import completely.text.analyze.AbstractAnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
-public class LengthFilterTest extends AnalyzerTest<LengthFilter>
+public class LengthFilterTest extends AbstractAnalyzerTest<LengthFilter>
 {
     public LengthFilterTest()
     {

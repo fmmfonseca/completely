@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public abstract class AnalyzerTest<T extends Analyzer>
+public abstract class AbstractAnalyzerTest<T extends Analyzer>
 {
     @Rule
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -14,7 +14,7 @@ public abstract class AnalyzerTest<T extends Analyzer>
 
     protected Analyzer analyzer;
 
-    public AnalyzerTest(T analyzer)
+    public AbstractAnalyzerTest(T analyzer)
     {
         this.exceptionRule = ExpectedException.none();
         this.analyzer = analyzer;
