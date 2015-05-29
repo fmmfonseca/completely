@@ -1,12 +1,12 @@
 package completely.text.analyze.transform;
 
-import completely.text.analyze.AnalyzerTest;
+import completely.text.analyze.AbstractAnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LowerCaseTransformerTest extends AnalyzerTest<LowerCaseTransformer>
+public class LowerCaseTransformerTest extends AbstractAnalyzerTest<LowerCaseTransformer>
 {
     public LowerCaseTransformerTest()
     {

@@ -1,12 +1,12 @@
 package completely.text.analyze.transform;
 
-import completely.text.analyze.AnalyzerTest;
+import completely.text.analyze.AbstractAnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DiacriticsTransformerTest extends AnalyzerTest<DiacriticsTransformer>
+public class DiacriticsTransformerTest extends AbstractAnalyzerTest<DiacriticsTransformer>
 {
     public DiacriticsTransformerTest()
     {

@@ -1,12 +1,12 @@
 package completely.text.analyze.tokenize;
 
-import completely.text.analyze.AnalyzerTest;
+import completely.text.analyze.AbstractAnalyzerTest;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class QGramTokenizerTest extends AnalyzerTest<QGramTokenizer>
+public class QGramTokenizerTest extends AbstractAnalyzerTest<QGramTokenizer>
 {
     public QGramTokenizerTest()
     {
