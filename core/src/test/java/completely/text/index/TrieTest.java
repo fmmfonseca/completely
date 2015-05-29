@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TrieTest extends IndexTest<Trie<Object>>
+public class TrieTest extends AbstractIndexTest<Trie<Object>>
 {
     public TrieTest()
     {
