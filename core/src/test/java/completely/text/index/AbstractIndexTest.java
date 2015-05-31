@@ -70,9 +70,9 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testPut()
     {
-        assertTrue(index.put("abc", 0));
-        assertEquals(1, index.size());
         assertTrue(index.put("abcd", 0));
+        assertEquals(1, index.size());
+        assertTrue(index.put("abc", 0));
         assertEquals(2, index.size());
     }
 
@@ -117,10 +117,14 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     public void testRemoveKeyValue()
     {
         index.put("abc", 0);
-        index.put("abc", 1);
+        index.put("abcd", 1);
         index.put("abcd", 0);
         assertTrue(index.remove("abc", 0));
         assertEquals(2, index.size());
+        assertTrue(index.remove("abcd", 1));
+        assertEquals(1, index.size());
+        assertTrue(index.remove("abcd", 0));
+        assertEquals(0, index.size());
     }
 
     @Test
@@ -133,13 +137,22 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     }
 
     @Test
+    public void testRemoveNullKeyValue()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        index.remove(null, 0);
+    }
+
+    @Test
     public void testRemoveValue()
     {
         index.put("abc", 0);
-        index.put("abc", 1);
+        index.put("abcd", 1);
         index.put("abcd", 0);
         assertTrue(index.remove(0));
         assertEquals(1, index.size());
+        assertTrue(index.remove(1));
+        assertEquals(0, index.size());
     }
 
     @Test
@@ -167,6 +180,7 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
         index.put("abc", 0);
         index.put("abcd", 0);
         assertEquals(1, index.removeAll("abc").size());
+        assertEquals(1, index.removeAll("abcd").size());
     }
 
     @Test
