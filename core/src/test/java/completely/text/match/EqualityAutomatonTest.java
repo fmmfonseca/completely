@@ -27,4 +27,18 @@ public class EqualityAutomatonTest extends AbstractAutomatonTest<EqualityAutomat
         assertFalse(automaton.isWordAccepted());
         assertTrue(automaton.isWordRejected());
     }
+
+    @Test
+    public void testMultiCharacterMatch()
+    {
+        automaton = new EqualityAutomaton("abcd");
+        assertFalse(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+        automaton = automaton.step("ab");
+        assertFalse(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+        automaton = automaton.stepUntilWordAccepted("cde");
+        assertTrue(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+    }
 }
