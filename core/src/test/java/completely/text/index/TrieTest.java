@@ -16,6 +16,7 @@ public class TrieTest extends AbstractIndexTest<Trie<Object>>
     {
         index.put("abc", 0);
         index.put("abcd", 1);
-        assertEquals(2, index.getAny("abc").size());
+        assertEquals(2, index.getAny("ab").size());
+        assertEquals(0, index.getAny("abd").size());
     }
 }
