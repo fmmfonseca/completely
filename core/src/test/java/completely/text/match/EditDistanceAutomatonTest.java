@@ -49,15 +49,15 @@ public class EditDistanceAutomatonTest extends AbstractAutomatonTest<EditDistanc
     @Test
     public void testMultiCharacterFuzzyMatch()
     {
-        automaton = new EditDistanceAutomaton("abc", 1D);
+        automaton = new EditDistanceAutomaton("abcd", 1D);
         assertFalse(automaton.isWordAccepted());
         assertFalse(automaton.isWordRejected());
         automaton = automaton.step("bc");
+        assertFalse(automaton.isWordAccepted());
+        assertFalse(automaton.isWordRejected());
+        automaton = automaton.stepUntilWordAccepted("de");
         assertTrue(automaton.isWordAccepted());
         assertFalse(automaton.isWordRejected());
-        automaton = automaton.step("cd");
-        assertFalse(automaton.isWordAccepted());
-        assertTrue(automaton.isWordRejected());
     }
 
 }
