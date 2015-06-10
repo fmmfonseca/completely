@@ -241,7 +241,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         if (key.length() <= 0)
         {
             Set<V> result = node.values;
-            node.values = new HashSet<V>();
+            node.values = new HashSet<V>(4);
             return result;
         }
         else
@@ -334,8 +334,8 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 
         Node()
         {
-            children = new HashMap<String, Node>();
-            values = new HashSet<V>();
+            children = new HashMap<String, Node>(4);
+            values = new HashSet<V>(4);
         }
 
         Node bisect(String key, int pivot)
