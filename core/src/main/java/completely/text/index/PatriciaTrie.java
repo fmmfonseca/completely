@@ -46,7 +46,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         Node node = find(root, key);
         if (node != null)
         {
-            return new HashSet<V>(node.values);
+            return new HashSet<V>(node.values());
         }
         return new HashSet<V>();
     }
@@ -127,7 +127,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else
         {
-            for (Entry<String, Node> entry : node.children.entrySet())
+            for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
                 Node child = entry.getValue();
@@ -153,7 +153,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         else if (!matcher.isWordRejected())
         {
             List<Node> result = new LinkedList<Node>();
-            for (Entry<String, Node> entry : node.children.entrySet())
+            for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
                 result.addAll(findAll(entry.getValue(), matcher.stepUntilWordAccepted(edge)));
@@ -170,13 +170,13 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert values != null;
         if (key.length() <= 0)
         {
-            return node.values.addAll(values);
+            return node.addAllValues(values);
         }
         else
         {
             Node child = null;
             int commonPrefixLength = 0;
-            for (Entry<String, Node> entry : node.children.entrySet())
+            for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
                 commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
@@ -197,7 +197,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             {
                 child = new Node();
                 commonPrefixLength = key.length();
-                node.children.put(key, child);
+                node.putChild(key, child);
             }
             return putAll(child, key.substring(commonPrefixLength), values);
         }
@@ -207,9 +207,9 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     {
         assert node != null;
         assert values != null;
-        boolean result = node.values.removeAll(values);
+        boolean result = node.removeAllValues(values);
         List<String> legacyEdges = new ArrayList<String>();
-        for (Iterator<Entry<String, Node>> iterator = node.children.entrySet().iterator(); iterator.hasNext();)
+        for (Iterator<Entry<String, Node>> iterator = node.childEntries().iterator(); iterator.hasNext();)
         {
             Entry<String, Node> entry = iterator.next();
             String edge = entry.getKey();
@@ -240,13 +240,11 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert key != null;
         if (key.length() <= 0)
         {
-            Set<V> result = node.values;
-            node.values = new HashSet<V>(4);
-            return result;
+            return node.removeAllValues();
         }
         else
         {
-            for (Entry<String, Node> entry : node.children.entrySet())
+            for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
                 int commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
@@ -257,7 +255,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
                     Set<V> result = removeAll(child, key.substring(commonPrefixLength));
                     if (child.isEmpty())
                     {
-                        node.children.remove(edge);
+                        node.removeChild(edge);
                     }
                     else if (child.isUnary())
                     {
@@ -277,11 +275,11 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert values != null;
         if (key.length() <= 0)
         {
-            return node.values.removeAll(values);
+            return node.removeAllValues(values);
         }
         else
         {
-            for (Entry<String, Node> entry : node.children.entrySet())
+            for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
                 int commonPrefixLength = Strings.getCommonPrefixLength(edge, key);
@@ -292,7 +290,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
                     boolean result = removeAll(child, key.substring(commonPrefixLength), values);
                     if (child.isEmpty())
                     {
-                        node.children.remove(edge);
+                        node.removeChild(edge);
                     }
                     else if (child.isUnary())
                     {
@@ -308,8 +306,8 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     private int size(Node node)
     {
         assert node != null;
-        int result = node.values.size();
-        for (Node child : node.children.values())
+        int result = node.values().size();
+        for (Node child : node.childNodes())
         {
             result += size(child);
         }
@@ -319,8 +317,8 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     private Set<V> values(Node node)
     {
         assert node != null;
-        Set<V> result = new HashSet<V>(node.values);
-        for (Node child : node.children.values())
+        Set<V> result = new HashSet<V>(node.values());
+        for (Node child : node.childNodes())
         {
             result.addAll(values(child));
         }
@@ -332,10 +330,14 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         private Map<String, Node> children;
         private Set<V> values;
 
-        Node()
+        boolean addAllValues(Collection<V> values)
         {
-            children = new HashMap<String, Node>(4);
-            values = new HashSet<V>(4);
+            assert values != null;
+            if (this.values == null)
+            {
+                this.values = new HashSet<V>(4);
+            }
+            return this.values.addAll(values);
         }
 
         Node bisect(String key, int pivot)
@@ -344,31 +346,100 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             String prefix = key.substring(0, pivot);
             String suffix = key.substring(pivot);
             Node child = new Node();
-            child.children.put(suffix, children.remove(key));
-            children.put(prefix, child);
+            child.putChild(suffix, removeChild(key));
+            putChild(prefix, child);
             return child;
+        }
+
+        Collection<Entry<String, Node>> childEntries()
+        {
+            if (children == null)
+            {
+                return Collections.<Entry<String, Node>>emptyList();
+            }
+            return children.entrySet();
+        }
+
+        Collection<Node> childNodes()
+        {
+            if (children == null)
+            {
+                return Collections.<Node>emptyList();
+            }
+            return children.values();
         }
 
         boolean isEmpty()
         {
-            return children.isEmpty() && values.isEmpty();
+            return (children == null || children.isEmpty()) && (values == null || values.isEmpty());
         }
 
         boolean isUnary()
         {
-            return values.isEmpty() && children.size() == 1;
+            return (values == null || values.isEmpty()) && children != null && children.size() == 1;
+        }
+
+        Node putChild(String key, Node value)
+        {
+            assert key != null;
+            assert value != null;
+            if (children == null)
+            {
+                children = new HashMap<String, Node>(4);
+            }
+            return children.put(key, value);
+        }
+
+        Set<V> removeAllValues()
+        {
+            if (values == null)
+            {
+                return new HashSet<V>();
+            }
+            Set<V> result = values;
+            values = null;
+            return result;
+        }
+
+        boolean removeAllValues(Collection<V> values)
+        {
+            assert values != null;
+            if (this.values == null)
+            {
+                return false;
+            }
+            return this.values.removeAll(values);
+        }
+
+        Node removeChild(String key)
+        {
+            assert key != null;
+            if (children == null)
+            {
+                return null;
+            }
+            return children.remove(key);
         }
 
         Node squash(String key)
         {
             assert key != null;
-            Node child = children.remove(key);
-            for (Entry<String, Node> entry : child.children.entrySet())
+            Node child = removeChild(key);
+            for (Entry<String, Node> entry : child.childEntries())
             {
                 String edge = entry.getKey();
-                children.put(key.concat(edge), child.children.remove(edge));
+                putChild(key.concat(edge), child.removeChild(edge));
             }
             return child;
+        }
+
+        Set<V> values()
+        {
+            if (values == null)
+            {
+                return Collections.<V>emptySet();
+            }
+            return values;
         }
     }
 }
