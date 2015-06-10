@@ -3,7 +3,7 @@ package completely;
 import completely.data.Indexable;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.FuzzyIndex;
-import completely.text.index.Trie;
+import completely.text.index.PatriciaTrie;
 import completely.text.match.EditDistanceAutomaton;
 
 import java.io.Console;
@@ -65,7 +65,7 @@ public final class AutocompleteEngineSample
 
     private static class SampleAdapter implements IndexAdapter<SampleRecord>
     {
-        private FuzzyIndex<SampleRecord> index = new Trie<SampleRecord>();
+        private FuzzyIndex<SampleRecord> index = new PatriciaTrie<SampleRecord>();
 
         @Override
         public Collection<SampleRecord> get(String token)
