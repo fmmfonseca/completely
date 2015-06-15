@@ -1,5 +1,7 @@
 package completely.common;
 
+import java.util.NoSuchElementException;
+
 import javax.annotation.Nullable;
 
 /**
@@ -59,6 +61,32 @@ public final class Precondition
         if (!expression)
         {
             throw new ArithmeticException(message);
+        }
+    }
+
+    /**
+     * Ensures the truth of an expression.
+     *
+     * @throws NoSuchElementException if {@code expression} is false;
+     */
+    public static void checkElement(boolean expression)
+    {
+        if (!expression)
+        {
+            throw new NoSuchElementException();
+        }
+    }
+
+    /**
+     * Ensures the truth of an expression.
+     *
+     * @throws NoSuchElementException if {@code expression} is false;
+     */
+    public static void checkElement(boolean expression, @Nullable String message)
+    {
+        if (!expression)
+        {
+            throw new NoSuchElementException(message);
         }
     }
 
