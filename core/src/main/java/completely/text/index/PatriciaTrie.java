@@ -3,6 +3,7 @@ package completely.text.index;
 import completely.common.Strings;
 import completely.text.match.Automaton;
 import completely.text.match.EqualityAutomaton;
+import completely.util.ArraySet;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -334,7 +335,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             assert values != null;
             if (this.values == null)
             {
-                this.values = new HashSet<V>(4);
+                this.values = new ArraySet<V>();
             }
             return this.values.addAll(values);
         }
@@ -393,7 +394,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         {
             if (values == null)
             {
-                return new HashSet<V>();
+                return new ArraySet<V>();
             }
             Set<V> result = values;
             values = null;

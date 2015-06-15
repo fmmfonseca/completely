@@ -1,5 +1,7 @@
 package completely.common;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -67,6 +69,33 @@ public class PreconditionTest
         exceptionRule.expect(ArithmeticException.class);
         exceptionRule.expectMessage("");
         Precondition.checkArithmetic(false, "");
+    }
+
+    @Test
+    public void testCheckElement()
+    {
+        Precondition.checkElement(true);
+    }
+
+    @Test
+    public void testCheckElementMessage()
+    {
+        Precondition.checkElement(true, "");
+    }
+
+    @Test
+    public void testCheckElementFail()
+    {
+        exceptionRule.expect(NoSuchElementException.class);
+        Precondition.checkElement(false);
+    }
+
+    @Test
+    public void testCheckElementFailMessage()
+    {
+        exceptionRule.expect(NoSuchElementException.class);
+        exceptionRule.expectMessage("");
+        Precondition.checkElement(false, "");
     }
 
     @Test
