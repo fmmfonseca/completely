@@ -13,6 +13,7 @@
         <module>sample</module>
     </modules>
     <properties>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     </properties>
     <build>
@@ -24,8 +25,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -79,7 +80,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.4</version>
                 <configuration>
-                    <targetJdk>1.6</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                 </configuration>
             </plugin>
         </plugins>

@@ -6,7 +6,7 @@ Autocomplete involves predicting a word or phrase that the user may type based o
 
 # Build from source
 
-Building *Completely* requires Maven 3 and Java 6, or newer.
+Building *Completely* requires Maven 3 and Java 8, or newer.
 
 Download the source code:
 
