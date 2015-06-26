@@ -7,7 +7,13 @@ import java.util.List;
  */
 public interface Indexable
 {
+    /**
+     * Returns a {@link List} of indexable fields.
+     */
     List<String> getFields();
 
+    /**
+     * Returns the score.
+     */
     double getScore();
 }
