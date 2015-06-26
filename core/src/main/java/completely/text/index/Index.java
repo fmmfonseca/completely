@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * Data structure that maps text keys to multiple values.
+ * Associative data structure that maps text keys to multiple values.
  */
 public interface Index<V>
 {
