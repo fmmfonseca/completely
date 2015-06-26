@@ -9,7 +9,13 @@ import javax.annotation.Nullable;
  */
 public interface IndexAdapter<V>
 {
+    /**
+     * Returns a {@link Collection} of all values associated with a token.
+     */
     Collection<V> get(String token);
 
+    /**
+     * Associates a single value with a token.
+     */
     boolean put(String token, @Nullable V value);
 }
