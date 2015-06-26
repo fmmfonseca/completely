@@ -2,7 +2,15 @@
 
 *Completely* is a Java autocomplete library.
 
-Autocomplete involves predicting a word or phrase that the user may type based on a partial query. The goal is to provide instant feeback and avoid unecessary typing as the user formulates queries. Performance is a key issue since each keystroke from the user could invoke a query, and each query should be answered within few milliseconds. *Completely* relies on text preprocessing to create an in-memory index data structure for efficiently answering searches.
+Autocomplete involves predicting a word or phrase that the user may type based on a partial query. The goal is to provide instant feedback and avoid unnecessary typing as the user formulates queries. Performance is a key issue since each keystroke from the user could invoke a query, and each query should be answered within a few milliseconds. What's more, because users often make spelling mistakes while typing, autocomplete should tolerate errors and differences in representation.
+
+Needless to say, a standard sequential search is bound to be ineffective for anything other than small data sets. By contrast, *Completely* relies on text preprocessing to create an in-memory index for efficiently answering searches in large data sets. All in all, there are three fundamental components at play:
+
+* [Analyzer](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/completely/text/analyze) function to filter, tokenize or transform text;
+* [Index](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/completely/text/index) data structure for storing the mapping of text to the corresponding sources;
+* [Automaton](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/completely/text/match) engine for text matching;
+
+Together these can used to tackle a variety of use cases, wherein the choice of components or combination thereof depends solely on the application at hand.
 
 # Build from source
 
