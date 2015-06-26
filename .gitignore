@@ -9,6 +9,11 @@ target/
 .metadata
 .project
 .settings/
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
 # Sublime Text
 *.sublime-project
 *.sublime-workspace
