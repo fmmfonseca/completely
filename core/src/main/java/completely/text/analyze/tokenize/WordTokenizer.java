@@ -16,6 +16,9 @@ public class WordTokenizer extends Analyzer
 {
     private final BreakIterator boundary;
 
+    /**
+     * Constructs a new {@link WordTokenizer}.
+     */
     public WordTokenizer()
     {
         this.boundary = BreakIterator.getWordInstance();

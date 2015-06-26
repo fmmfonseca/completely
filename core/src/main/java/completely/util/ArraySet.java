@@ -21,6 +21,9 @@ public class ArraySet<E> extends AbstractSet<E> implements Set<E>
 {
     protected Object[] array;
 
+    /**
+     * Constructs a new {@link ArraySet}.
+     */
     public ArraySet()
     {
         array = new Object[0];

@@ -19,6 +19,9 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
 {
     private final Map<String, Set<V>> map;
 
+    /**
+     * Constructs a new {@link HashMultiMap}.
+     */
     public HashMultiMap()
     {
         map = new HashMap<String, Set<V>>();

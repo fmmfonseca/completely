@@ -156,6 +156,9 @@ public final class AutocompleteEngine<T extends Indexable>
         private Comparator<T> comparator;
         private IndexAdapter<T> index;
 
+        /**
+         * Constructs a new {@link AutocompleteEngine.Builder}.
+         */
         public Builder()
         {
             this.analyzer = new Analyzer()

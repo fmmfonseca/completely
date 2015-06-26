@@ -29,6 +29,9 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
 {
     private Node root;
 
+    /**
+     * Constructs a new {@link PatriciaTrie}.
+     */
     public PatriciaTrie()
     {
         root = new Node();
