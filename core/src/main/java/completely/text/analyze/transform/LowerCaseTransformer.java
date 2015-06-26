@@ -16,11 +16,17 @@ public class LowerCaseTransformer extends Analyzer
 {
     private final Locale locale;
 
+    /**
+     * Constructs a new {@link LowerCaseTransformer}.
+     */
     public LowerCaseTransformer()
     {
         this(Locale.getDefault());
     }
 
+    /**
+     * Constructs a new {@link LowerCaseTransformer}.
+     */
     public LowerCaseTransformer(Locale locale)
     {
         checkPointer(locale != null);

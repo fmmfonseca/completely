@@ -9,6 +9,9 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
     private final double threshold;
     private final int[] vector;
 
+    /**
+     * Constructs a new {@link EditDistanceAutomaton}.
+     */
     public EditDistanceAutomaton(String pattern, double threshold)
     {
         super(pattern);

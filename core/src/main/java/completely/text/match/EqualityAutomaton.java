@@ -9,6 +9,9 @@ public final class EqualityAutomaton extends AbstractAutomaton
     private final int count;
     private final int index;
 
+    /**
+     * Constructs a new {@link EqualityAutomaton}.
+     */
     public EqualityAutomaton(String pattern)
     {
         super(pattern);

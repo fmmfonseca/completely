@@ -15,6 +15,9 @@ public class QGramTokenizer extends Analyzer
 {
     private final int size;
 
+    /**
+     * Constructs a new {@link QGramTokenizer}.
+     */
     public QGramTokenizer(int size)
     {
         this.size = size;

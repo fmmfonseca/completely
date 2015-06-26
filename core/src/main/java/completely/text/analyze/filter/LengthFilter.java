@@ -15,6 +15,9 @@ public class LengthFilter extends Analyzer
 {
     private final int min, max;
 
+    /**
+     * Constructs a new {@link LengthFilter}.
+     */
     public LengthFilter(int min, int max)
     {
         this.min = min;
