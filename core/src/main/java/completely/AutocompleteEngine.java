@@ -2,6 +2,7 @@ package completely;
 
 import completely.data.Indexable;
 import completely.text.analyze.Analyzer;
+import completely.text.analyze.NoopAnalyzer;
 import completely.text.index.Index;
 
 import java.util.ArrayList;
@@ -186,7 +187,7 @@ public final class AutocompleteEngine<T extends Indexable>
      */
     public static class Builder<T extends Indexable>
     {
-        private Analyzer analyzer;
+        private Analyzer analyzer = NoopAnalyzer.getInstance();
         private Comparator<T> comparator;
         private IndexAdapter<T> index;
 
@@ -195,14 +196,6 @@ public final class AutocompleteEngine<T extends Indexable>
          */
         public Builder()
         {
-            this.analyzer = new Analyzer()
-            {
-                @Override
-                public Collection<String> apply(Collection<String> input)
-                {
-                    return new ArrayList<>(input);
-                }
-            };
         }
 
         /**
