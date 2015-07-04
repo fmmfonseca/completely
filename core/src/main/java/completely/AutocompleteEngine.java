@@ -103,7 +103,7 @@ public final class AutocompleteEngine<T extends Indexable>
         read.lock();
         try
         {
-            List<T> result = new ArrayList<T>();
+            List<T> result = new ArrayList<>();
             Iterator<String> tokens = analyzer.apply(query).iterator();
             if (tokens.hasNext())
             {
@@ -166,7 +166,7 @@ public final class AutocompleteEngine<T extends Indexable>
                 @Override
                 public Collection<String> apply(Collection<String> input)
                 {
-                    return new ArrayList<String>(input);
+                    return new ArrayList<>(input);
                 }
             };
         }
@@ -232,7 +232,7 @@ public final class AutocompleteEngine<T extends Indexable>
         {
             checkPointer(analyzer != null);
             checkPointer(index != null);
-            return new AutocompleteEngine<T>(this);
+            return new AutocompleteEngine<>(this);
         }
     }
 }

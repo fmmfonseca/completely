@@ -28,7 +28,7 @@ public class AutocompleteEngineTest
     {
         this.exceptionRule = ExpectedException.none();
         this.engine = new AutocompleteEngine.Builder<TestRecord>()
-            .setIndex(new HashMultiMap<TestRecord>())
+            .setIndex(new HashMultiMap<>())
             .build();
     }
 

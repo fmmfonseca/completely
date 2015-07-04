@@ -23,7 +23,7 @@ public class ArraySetTest
     public ArraySetTest()
     {
         this.exceptionRule = ExpectedException.none();
-        this.set = new ArraySet<Object>();
+        this.set = new ArraySet<>();
     }
 
     @Test

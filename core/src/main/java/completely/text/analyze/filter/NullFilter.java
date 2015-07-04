@@ -17,7 +17,7 @@ public class NullFilter extends Analyzer
     public Collection<String> apply(Collection<String> input)
     {
         checkPointer(input != null);
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String text : input)
         {
             if (text != null)
