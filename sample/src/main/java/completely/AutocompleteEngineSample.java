@@ -56,7 +56,7 @@ public final class AutocompleteEngineSample
             String input = console.readLine("Query: ");
             for (SingleStringRecord record : engine.search(input))
             {
-                console.printf("- %s%n", record);
+                console.printf("- %s%n", record.getFields().get(0));
             }
         }
     }
