@@ -1,15 +1,13 @@
 package completely;
 
-import completely.data.Indexable;
+import completely.data.SingleStringRecord;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.FuzzyIndex;
 import completely.text.index.PatriciaTrie;
 import completely.text.match.EditDistanceAutomaton;
 
 import java.io.Console;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public final class AutocompleteEngineSample
 {
@@ -18,7 +16,7 @@ public final class AutocompleteEngineSample
 
     public static void main(String[] args)
     {
-        AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()
+        AutocompleteEngine<SingleStringRecord> engine = new AutocompleteEngine.Builder<SingleStringRecord>()
             .setIndex(new SampleAdapter())
             .setAnalyzer(new LowerCaseTransformer())
             .build();
@@ -49,61 +47,35 @@ public final class AutocompleteEngineSample
         };
         for (String entry : entries)
         {
-            engine.add(new SampleRecord(entry));
+            engine.add(new SingleStringRecord(entry));
         }
 
         Console console = System.console();
         while (true)
         {
             String input = console.readLine("Query: ");
-            for (SampleRecord record : engine.search(input))
+            for (SingleStringRecord record : engine.search(input))
             {
-                console.printf("- %s%n", record.getName());
+                console.printf("- %s%n", record);
             }
         }
     }
 
-    private static class SampleAdapter implements IndexAdapter<SampleRecord>
+    private static class SampleAdapter implements IndexAdapter<SingleStringRecord>
     {
-        private FuzzyIndex<SampleRecord> index = new PatriciaTrie<SampleRecord>();
+        private FuzzyIndex<SingleStringRecord> index = new PatriciaTrie<SingleStringRecord>();
 
         @Override
-        public Collection<SampleRecord> get(String token)
+        public Collection<SingleStringRecord> get(String token)
         {
             return index.getAny(new EditDistanceAutomaton(token, Math.log(token.length())));
         }
 
         @Override
-        public boolean put(String token, SampleRecord value)
+        public boolean put(String token, SingleStringRecord value)
         {
             return index.put(token, value);
         }
     }
 
-    private static class SampleRecord implements Indexable
-    {
-        private final String name;
-
-        SampleRecord(String name)
-        {
-            this.name = name;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return Arrays.asList(name);
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return 0;
-        }
-    }
 }
