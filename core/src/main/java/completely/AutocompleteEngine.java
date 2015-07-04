@@ -21,6 +21,14 @@ import static completely.common.Precondition.checkPointer;
 
 /**
  * Facade for indexing and searching {@link Indexable} elements.
+ *
+ * <p>To create one, do something like this:
+ * <pre><code>
+ * AutocompleteEngine<MyRecord> engine new AutocompleteEngine.Builder<MyRecord>()
+ *     .setIndex(new HashMultiMap<>())
+ *     // ... more config
+ *     .build();
+ * </code></pre></p>
  */
 public final class AutocompleteEngine<T extends Indexable>
 {
@@ -44,6 +52,7 @@ public final class AutocompleteEngine<T extends Indexable>
     /**
      * Indexes a single element.
      *
+     * @see #addAll
      * @throws NullPointerException if {@code element} is null;
      */
     public boolean add(T element)
@@ -53,6 +62,8 @@ public final class AutocompleteEngine<T extends Indexable>
 
     /**
      * Indexes a collection of elements.
+     *
+     * TODO define what happens with elements that were indexed already.
      *
      * @throws NullPointerException if {@code elements} is null or contains a null element;
      */
@@ -86,8 +97,8 @@ public final class AutocompleteEngine<T extends Indexable>
     }
 
     /**
-     * Returns a {@link List} of all elements that match a query, sorted
-     * according to the default comparator.
+     * Returns a {@link List} of all elements that match the {@code query}, sorted
+     * according to the default comparator, or unsorted if there is no default comparator.
      */
     public List<T> search(@Nullable String query)
     {
