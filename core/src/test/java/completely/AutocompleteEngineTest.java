@@ -130,6 +130,31 @@ public class AutocompleteEngineTest
         assertEquals(3, result.size());
     }
 
+
+    /**
+     * TODO this test currently fails see https://github.com/fmmfonseca/completely/issues/2
+     */
+    @Test
+    public void testSearchForNull()
+    {
+        engine.add(new TestRecord(0, "alpha"));
+        engine.add(new TestRecord(0, "beta"));
+        List<TestRecord> result = engine.search(null);
+        assertEquals(0, result.size());
+    }
+    /**
+     * This behavior may change see https://github.com/fmmfonseca/completely/issues/2
+     */
+    @Test
+    public void testSearchForEmpty()
+    {
+        engine.add(new TestRecord(0, "alpha"));
+        engine.add(new TestRecord(0, "beta"));
+        List<TestRecord> result = engine.search("");
+        assertEquals(0, result.size());
+    }
+
+
     private static class TestRecord implements Indexable
     {
         private final List<String> fields;
