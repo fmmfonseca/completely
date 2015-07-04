@@ -1,9 +1,7 @@
 package completely;
 
-import completely.data.Indexable;
 import completely.text.index.HashMultiMap;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -130,7 +128,6 @@ public class AutocompleteEngineTest
         assertEquals(3, result.size());
     }
 
-
     /**
      * Not allowing search(null) see see https://github.com/fmmfonseca/completely/issues/2
      */
@@ -153,73 +150,4 @@ public class AutocompleteEngineTest
     }
 
 
-    private static class TestRecord implements Indexable
-    {
-        private final List<String> fields;
-        private final double score;
-
-        TestRecord(double score, String... fields)
-        {
-            this.fields = Arrays.asList(fields);
-            this.score = score;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return fields;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return score;
-        }
-    }
-    private static class TestRecordImplementingEqualsHashcode implements Indexable
-    {
-        private final List<String> fields;
-        private final double score;
-
-        TestRecordImplementingEqualsHashcode(double score, String... fields)
-        {
-            this.fields = Arrays.asList(fields);
-            this.score = score;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return fields;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return score;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            TestRecordImplementingEqualsHashcode that = (TestRecordImplementingEqualsHashcode) o;
-
-            if (Double.compare(that.score, score) != 0) return false;
-            if (fields != null ? !fields.equals(that.fields) : that.fields != null) return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            int result;
-            long temp;
-            result = fields != null ? fields.hashCode() : 0;
-            temp = Double.doubleToLongBits(score);
-            result = 31 * result + (int) (temp ^ (temp >>> 32));
-            return result;
-        }
-    }
 }
