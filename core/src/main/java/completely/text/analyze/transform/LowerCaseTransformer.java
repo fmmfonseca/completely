@@ -45,4 +45,11 @@ public class LowerCaseTransformer extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "LowerCaseTransformer{" +
+                "locale=" + locale +
+                '}';
+    }
 }

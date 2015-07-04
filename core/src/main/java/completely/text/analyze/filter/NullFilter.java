@@ -27,4 +27,9 @@ public class NullFilter extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "NullFilter";
+    }
 }

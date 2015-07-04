@@ -39,4 +39,12 @@ public class LengthFilter extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "LengthFilter{" +
+                "min=" + min +
+                ", max=" + max +
+                '}';
+    }
 }

@@ -38,4 +38,11 @@ public class QGramTokenizer extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "QGramTokenizer{" +
+                "size=" + size +
+                '}';
+    }
 }

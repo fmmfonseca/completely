@@ -44,4 +44,9 @@ public class WordTokenizer extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "WordTokenizer";
+    }
 }

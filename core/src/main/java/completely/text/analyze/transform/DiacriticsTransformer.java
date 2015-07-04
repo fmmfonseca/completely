@@ -35,4 +35,9 @@ public class DiacriticsTransformer extends Analyzer
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "DiacriticsTransformer";
+    }
 }
