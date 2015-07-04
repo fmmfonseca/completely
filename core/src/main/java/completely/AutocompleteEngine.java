@@ -121,15 +121,27 @@ public final class AutocompleteEngine<T extends Indexable>
         read.lock();
         try
         {
-            List<T> result = new ArrayList<>();
             Iterator<String> tokens = analyzer.apply(query).iterator();
-            if (tokens.hasNext())
-            {
-                result.addAll(index.get(tokens.next()));
+            if (!tokens.hasNext()) {
+                //only garbage input.
+                return Collections.emptyList();
+            }
+
+            //this search implementation requires that a hit matches all tokens.
+
+            List<T> result = new ArrayList<>();
+            result.addAll(index.get(tokens.next()));
+            if (result.isEmpty()) {
+                //nothing found for first token. can't improve from here.
+                return Collections.emptyList();
             }
             while (tokens.hasNext())
             {
                 result.retainAll(index.get(tokens.next()));
+                if (result.isEmpty()) {
+                    //nothing matches all tokens so far. can't improve from here.
+                    return Collections.emptyList();
+                }
             }
             if (comparator != null)
             {
