@@ -132,26 +132,24 @@ public class AutocompleteEngineTest
 
 
     /**
-     * TODO this test currently fails see https://github.com/fmmfonseca/completely/issues/2
+     * Not allowing search(null) see see https://github.com/fmmfonseca/completely/issues/2
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSearchForNull()
     {
         engine.add(new TestRecord(0, "alpha"));
         engine.add(new TestRecord(0, "beta"));
-        List<TestRecord> result = engine.search(null);
-        assertEquals(0, result.size());
+        engine.search(null);
     }
     /**
-     * This behavior may change see https://github.com/fmmfonseca/completely/issues/2
+     * Not allowing search("") see see https://github.com/fmmfonseca/completely/issues/2
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testSearchForEmpty()
     {
         engine.add(new TestRecord(0, "alpha"));
         engine.add(new TestRecord(0, "beta"));
-        List<TestRecord> result = engine.search("");
-        assertEquals(0, result.size());
+        engine.search("");
     }
 
 
