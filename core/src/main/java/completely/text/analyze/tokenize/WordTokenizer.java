@@ -28,11 +28,11 @@ public class WordTokenizer extends Analyzer
     public Collection<String> apply(Collection<String> input)
     {
         checkPointer(input != null);
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String text : input)
         {
             checkPointer(text != null);
-            boundary.setText(text.toString());
+            boundary.setText(text);
             for (int start = boundary.first(), end = boundary.next(); end != BreakIterator.DONE; start = end, end = boundary.next())
             {
                 String word = text.substring(start, end);
@@ -43,5 +43,10 @@ public class WordTokenizer extends Analyzer
             }
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "WordTokenizer";
     }
 }

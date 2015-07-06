@@ -24,7 +24,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
      */
     public HashMultiMap()
     {
-        map = new HashMap<String, Set<V>>();
+        map = new HashMap<>();
     }
 
     @Override
@@ -40,9 +40,9 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
         Set<V> value = map.get(key);
         if (value != null)
         {
-            return new HashSet<V>(value);
+            return new HashSet<>(value);
         }
-        return new HashSet<V>();
+        return new HashSet<>();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
         Set<V> value = map.get(key);
         if (value == null)
         {
-            value = new HashSet<V>();
+            value = new HashSet<>();
             map.put(key, value);
         }
         return value.addAll(values);
@@ -90,7 +90,7 @@ public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
     {
         checkPointer(key != null);
         Set<V> value = map.remove(key);
-        return value != null ? value : new HashSet<V>();
+        return value != null ? value : new HashSet<>();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class QGramTokenizer extends Analyzer
     public Collection<String> apply(Collection<String> input)
     {
         checkPointer(input != null);
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String text : input)
         {
             checkPointer(text != null);
@@ -37,5 +37,12 @@ public class QGramTokenizer extends Analyzer
             }
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "QGramTokenizer{" +
+                "size=" + size +
+                '}';
     }
 }

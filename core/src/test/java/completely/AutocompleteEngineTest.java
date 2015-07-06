@@ -1,9 +1,7 @@
 package completely;
 
-import completely.data.Indexable;
 import completely.text.index.HashMultiMap;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class AutocompleteEngineTest
     {
         this.exceptionRule = ExpectedException.none();
         this.engine = new AutocompleteEngine.Builder<TestRecord>()
-            .setIndex(new HashMultiMap<TestRecord>())
+            .setIndex(new HashMultiMap<>())
             .build();
     }
 
@@ -82,6 +80,21 @@ public class AutocompleteEngineTest
         assertEquals(2, engine.search("a", 2).size());
     }
 
+    /**
+     * Because all 3 records are equal (but different instances) only 1 may be returned as search hit.
+     */
+    @Test
+    public void testEqualRecords()
+    {
+        AutocompleteEngine<TestRecordImplementingEqualsHashcode> engine = new AutocompleteEngine.Builder<TestRecordImplementingEqualsHashcode>()
+                .setIndex(new HashMultiMap<>())
+                .build();
+        engine.add(new TestRecordImplementingEqualsHashcode(0, "a"));
+        engine.add(new TestRecordImplementingEqualsHashcode(0, "a"));
+        engine.add(new TestRecordImplementingEqualsHashcode(0, "a"));
+        assertEquals(1, engine.search("a", 2).size());
+    }
+
     @Test
     public void testSearchCustomComparator()
     {
@@ -115,27 +128,26 @@ public class AutocompleteEngineTest
         assertEquals(3, result.size());
     }
 
-    private static class TestRecord implements Indexable
+    /**
+     * Not allowing search(null) see see https://github.com/fmmfonseca/completely/issues/2
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSearchForNull()
     {
-        private final List<String> fields;
-        private final double score;
-
-        TestRecord(double score, String... fields)
-        {
-            this.fields = Arrays.asList(fields);
-            this.score = score;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return fields;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return score;
-        }
+        engine.add(new TestRecord(0, "alpha"));
+        engine.add(new TestRecord(0, "beta"));
+        engine.search(null);
     }
+    /**
+     * Not allowing search("") see see https://github.com/fmmfonseca/completely/issues/2
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSearchForEmpty()
+    {
+        engine.add(new TestRecord(0, "alpha"));
+        engine.add(new TestRecord(0, "beta"));
+        engine.search("");
+    }
+
+
 }

@@ -8,7 +8,7 @@ public class PatriciaTrieTest extends AbstractIndexTest<PatriciaTrie<Object>>
 {
     public PatriciaTrieTest()
     {
-        super(new PatriciaTrie<Object>());
+        super(new PatriciaTrie<>());
     }
 
     @Test
