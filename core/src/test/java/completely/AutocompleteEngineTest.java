@@ -113,4 +113,11 @@ public class AutocompleteEngineTest
         List<TestRecord> result = engine.search("a", null);
         assertEquals(3, result.size());
     }
+
+    @Test
+    public void testSearchNullQuery()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        engine.search(null);
+    }
 }
