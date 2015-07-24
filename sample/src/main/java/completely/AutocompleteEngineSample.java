@@ -2,12 +2,8 @@ package completely;
 
 import completely.data.SampleRecord;
 import completely.text.analyze.transform.LowerCaseTransformer;
-import completely.text.index.FuzzyIndex;
-import completely.text.index.PatriciaTrie;
-import completely.text.match.EditDistanceAutomaton;
 
 import java.io.Console;
-import java.util.Collection;
 
 public final class AutocompleteEngineSample
 {
@@ -58,23 +54,6 @@ public final class AutocompleteEngineSample
             {
                 console.printf("- %s%n", record.getName());
             }
-        }
-    }
-
-    private static class SampleAdapter implements IndexAdapter<SampleRecord>
-    {
-        private FuzzyIndex<SampleRecord> index = new PatriciaTrie<SampleRecord>();
-
-        @Override
-        public Collection<SampleRecord> get(String token)
-        {
-            return index.getAny(new EditDistanceAutomaton(token, Math.log(token.length())));
-        }
-
-        @Override
-        public boolean put(String token, SampleRecord value)
-        {
-            return index.put(token, value);
         }
     }
 }
