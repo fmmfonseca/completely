@@ -1,15 +1,13 @@
 package completely;
 
-import completely.data.Indexable;
+import completely.data.SampleRecord;
 import completely.text.analyze.transform.LowerCaseTransformer;
 import completely.text.index.FuzzyIndex;
 import completely.text.index.PatriciaTrie;
 import completely.text.match.EditDistanceAutomaton;
 
 import java.io.Console;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public final class AutocompleteEngineSample
 {
@@ -77,33 +75,6 @@ public final class AutocompleteEngineSample
         public boolean put(String token, SampleRecord value)
         {
             return index.put(token, value);
-        }
-    }
-
-    private static class SampleRecord implements Indexable
-    {
-        private final String name;
-
-        SampleRecord(String name)
-        {
-            this.name = name;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return Arrays.asList(name);
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return 0;
         }
     }
 }
