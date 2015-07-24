@@ -1,9 +1,8 @@
 package completely;
 
-import completely.data.Indexable;
+import completely.data.TestRecord;
 import completely.text.index.HashMultiMap;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -113,29 +112,5 @@ public class AutocompleteEngineTest
         engine.add(new TestRecord(2, "a"));
         List<TestRecord> result = engine.search("a", null);
         assertEquals(3, result.size());
-    }
-
-    private static class TestRecord implements Indexable
-    {
-        private final List<String> fields;
-        private final double score;
-
-        TestRecord(double score, String... fields)
-        {
-            this.fields = Arrays.asList(fields);
-            this.score = score;
-        }
-
-        @Override
-        public List<String> getFields()
-        {
-            return fields;
-        }
-
-        @Override
-        public double getScore()
-        {
-            return score;
-        }
     }
 }
