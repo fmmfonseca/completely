@@ -3,9 +3,6 @@ package completely;
 import completely.data.TestRecord;
 import completely.text.index.HashMultiMap;
 
-import java.util.Comparator;
-import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -79,39 +76,6 @@ public class AutocompleteEngineTest
         engine.add(new TestRecord(0, "a"));
         engine.add(new TestRecord(0, "a"));
         assertEquals(2, engine.search("a", 2).size());
-    }
-
-    @Test
-    public void testSearchCustomComparator()
-    {
-        Comparator<TestRecord> comparator = new Comparator<TestRecord>()
-        {
-            @Override
-            public int compare(TestRecord o1, TestRecord o2)
-            {
-                Double score1 = o1.getScore();
-                Double score2 = o2.getScore();
-                return score1.compareTo(score2);
-            }
-        };
-        engine.add(new TestRecord(0, "a"));
-        engine.add(new TestRecord(1, "a"));
-        engine.add(new TestRecord(2, "a"));
-        List<TestRecord> result = engine.search("a", comparator);
-        assertEquals(3, result.size());
-        assertEquals(0, result.get(0).getScore(), 0);
-        assertEquals(1, result.get(1).getScore(), 0);
-        assertEquals(2, result.get(2).getScore(), 0);
-    }
-
-    @Test
-    public void testSearchNullComparator()
-    {
-        engine.add(new TestRecord(0, "a"));
-        engine.add(new TestRecord(1, "a"));
-        engine.add(new TestRecord(2, "a"));
-        List<TestRecord> result = engine.search("a", null);
-        assertEquals(3, result.size());
     }
 
     @Test

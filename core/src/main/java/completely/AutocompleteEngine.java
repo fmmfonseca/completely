@@ -91,15 +91,6 @@ public final class AutocompleteEngine<T extends Indexable>
      */
     public List<T> search(String query)
     {
-        return search(query, comparator);
-    }
-
-    /**
-     * Returns a {@link List} of all elements that match a query, sorted
-     * according to the specified comparator.
-     */
-    public List<T> search(String query, @Nullable Comparator<T> comparator)
-    {
         checkPointer(query != null);
         read.lock();
         try
@@ -127,20 +118,12 @@ public final class AutocompleteEngine<T extends Indexable>
     }
 
     /**
-     * Returns a {@link List} of the top elements that match a query.
+     * Returns a {@link List} of the top elements that match a query, sorted
+     * according to the default comparator.
      */
     public List<T> search(String query, int limit)
     {
-        return search(query, comparator, limit);
-    }
-
-    /**
-     * Returns a {@link List} of the top elements that match a query, sorted
-     * according to the specified comparator.
-     */
-    public List<T> search(String query, @Nullable Comparator<T> comparator, int limit)
-    {
-        List<T> result = search(query, comparator);
+        List<T> result = search(query);
         if (result.size() > limit)
         {
             return result.subList(0, limit);
