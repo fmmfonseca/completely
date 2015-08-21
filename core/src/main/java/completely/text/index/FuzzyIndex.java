@@ -1,5 +1,6 @@
 package completely.text.index;
 
+import completely.data.ScoredObject;
 import completely.text.match.Automaton;
 
 import java.util.Set;
@@ -14,12 +15,12 @@ public interface FuzzyIndex<V> extends Index<V>
      *
      * @throws NullPointerException if {@code fragment} is null;
      */
-    Set<V> getAny(String fragment);
+    Set<ScoredObject<V>> getAny(String fragment);
 
     /**
      * Returns a {@link Set} of all values associated with a key matcher.
      *
      * @throws NullPointerException if {@code matcher} is null;
      */
-    Set<V> getAny(Automaton matcher);
+    Set<ScoredObject<V>> getAny(Automaton matcher);
 }

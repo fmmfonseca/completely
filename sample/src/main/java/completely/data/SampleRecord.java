@@ -22,10 +22,4 @@ public class SampleRecord implements Indexable
     {
         return name;
     }
-
-    @Override
-    public double getScore()
-    {
-        return 0;
-    }
 }

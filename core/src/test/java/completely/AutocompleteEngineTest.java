@@ -38,7 +38,7 @@ public class AutocompleteEngineTest
     @Test
     public void testAdd()
     {
-        TestRecord record = new TestRecord(0, "a");
+        TestRecord record = new TestRecord("a");
         assertTrue(engine.add(record));
         assertFalse(engine.add(record));
     }
@@ -60,9 +60,9 @@ public class AutocompleteEngineTest
     @Test
     public void testSearch()
     {
-        engine.add(new TestRecord(0, "a", "b"));
-        engine.add(new TestRecord(0, "a", "c"));
-        engine.add(new TestRecord(0, "a", "d"));
+        engine.add(new TestRecord("a", "b"));
+        engine.add(new TestRecord("a", "c"));
+        engine.add(new TestRecord("a", "d"));
         assertEquals(3, engine.search("a").size());
         assertEquals(1, engine.search("b").size());
         assertEquals(1, engine.search("c").size());
@@ -72,9 +72,9 @@ public class AutocompleteEngineTest
     @Test
     public void testSearchLimit()
     {
-        engine.add(new TestRecord(0, "a"));
-        engine.add(new TestRecord(0, "a"));
-        engine.add(new TestRecord(0, "a"));
+        engine.add(new TestRecord("a"));
+        engine.add(new TestRecord("a"));
+        engine.add(new TestRecord("a"));
         assertEquals(2, engine.search("a", 2).size());
     }
 

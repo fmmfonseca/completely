@@ -1,15 +1,16 @@
 package completely;
 
 import completely.data.Indexable;
+import completely.data.ScoredObject;
 import completely.text.analyze.Analyzer;
 import completely.text.index.Index;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -25,7 +26,7 @@ import static completely.common.Precondition.checkPointer;
 public final class AutocompleteEngine<T extends Indexable>
 {
     private final Analyzer analyzer;
-    private final Comparator<T> comparator;
+    private final Comparator<ScoredObject<T>> comparator;
     private final IndexAdapter<T> index;
     private final Lock read;
     private final Lock write;
@@ -95,21 +96,21 @@ public final class AutocompleteEngine<T extends Indexable>
         read.lock();
         try
         {
-            List<T> result = new ArrayList<T>();
+            Aggregator<T> aggregator = new Aggregator<T>(comparator);
             Iterator<String> tokens = analyzer.apply(query).iterator();
             if (tokens.hasNext())
             {
-                result.addAll(index.get(tokens.next()));
+                aggregator.addAll(index.get(tokens.next()));
             }
             while (tokens.hasNext())
             {
-                result.retainAll(index.get(tokens.next()));
+                if (aggregator.isEmpty())
+                {
+                    break;
+                }
+                aggregator.retainAll(index.get(tokens.next()));
             }
-            if (comparator != null)
-            {
-                Collections.sort(result, comparator);
-            }
-            return result;
+            return aggregator.values();
         }
         finally
         {
@@ -137,7 +138,7 @@ public final class AutocompleteEngine<T extends Indexable>
     public static class Builder<T extends Indexable>
     {
         private Analyzer analyzer;
-        private Comparator<T> comparator;
+        private Comparator<ScoredObject<T>> comparator;
         private IndexAdapter<T> index;
 
         /**
@@ -167,7 +168,7 @@ public final class AutocompleteEngine<T extends Indexable>
         /**
          * Set the comparator.
          */
-        public Builder<T> setComparator(@Nullable Comparator<T> comparator)
+        public Builder<T> setComparator(@Nullable Comparator<ScoredObject<T>> comparator)
         {
             this.comparator = comparator;
             return this;
@@ -184,9 +185,14 @@ public final class AutocompleteEngine<T extends Indexable>
             return setIndex(new IndexAdapter<T>()
             {
                 @Override
-                public Collection<T> get(String token)
+                public Collection<ScoredObject<T>> get(String token)
                 {
-                    return index.getAll(token);
+                    List<ScoredObject<T>> result = new LinkedList<ScoredObject<T>>();
+                    for (T element : index.getAll(token))
+                    {
+                        result.add(new ScoredObject<T>(element, 0));
+                    }
+                    return result;
                 }
 
                 @Override

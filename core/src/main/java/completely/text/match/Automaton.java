@@ -6,6 +6,21 @@ package completely.text.match;
 public interface Automaton
 {
     /**
+     * Returns the pattern.
+     */
+    String getPattern();
+
+    /**
+     * Returns the word score.
+     */
+    double getScore();
+
+    /**
+     * Returns the word.
+     */
+    String getWord();
+
+    /**
      * Returns {@code true} if the word is accepted.
      */
     boolean isWordAccepted();
@@ -14,11 +29,6 @@ public interface Automaton
      * Returns {@code true} if the word is rejected.
      */
     boolean isWordRejected();
-
-    /**
-     * Returns the pattern.
-     */
-    String getPattern();
 
     /**
      * Returns a new automaton transitioned to another state.

@@ -1,6 +1,7 @@
 package completely.text.index;
 
 import completely.common.Strings;
+import completely.data.ScoredObject;
 import completely.text.match.Automaton;
 import completely.text.match.EqualityAutomaton;
 import completely.util.ArraySet;
@@ -55,25 +56,25 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     }
 
     @Override
-    public Set<V> getAny(String fragment)
+    public Set<ScoredObject<V>> getAny(String fragment)
     {
         checkPointer(fragment != null);
-        Set<V> result = new HashSet<V>();
-        for (Node node : findAll(root, new EqualityAutomaton(fragment)))
+        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        for (FuzzyMatch match : findAll(root, new EqualityAutomaton(fragment), ""))
         {
-            result.addAll(values(node));
+            result.addAll(values(match.getNode(), match.getMatcher()));
         }
         return result;
     }
 
     @Override
-    public Set<V> getAny(Automaton matcher)
+    public Set<ScoredObject<V>> getAny(Automaton matcher)
     {
         checkPointer(matcher != null);
-        Set<V> result = new HashSet<V>();
-        for (Node node : findAll(root, matcher))
+        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        for (FuzzyMatch match : findAll(root, matcher, ""))
         {
-            result.addAll(values(node));
+            result.addAll(values(match.getNode(), match.getMatcher()));
         }
         return result;
     }
@@ -145,25 +146,32 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         return null;
     }
 
-    private Collection<Node> findAll(Node node, Automaton matcher)
+    private Collection<FuzzyMatch> findAll(Node node, Automaton matcher, String word)
     {
         assert node != null;
         assert matcher != null;
+        assert word != null;
         if (matcher.isWordAccepted())
         {
-            return Arrays.asList(node);
+            // Resume partial match
+            if (matcher.getWord().length() < word.length())
+            {
+                String suffix = word.substring(matcher.getWord().length());
+                matcher = matcher.step(suffix);
+            }
+            return Arrays.asList(new FuzzyMatch(node, matcher));
         }
         else if (!matcher.isWordRejected())
         {
-            List<Node> result = new LinkedList<Node>();
+            List<FuzzyMatch> result = new LinkedList<FuzzyMatch>();
             for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
-                result.addAll(findAll(entry.getValue(), matcher.stepUntilWordAccepted(edge)));
+                result.addAll(findAll(entry.getValue(), matcher.stepUntilWordAccepted(edge), word + edge));
             }
             return result;
         }
-        return Collections.<Node>emptyList();
+        return Collections.<FuzzyMatch>emptyList();
     }
 
     private boolean putAll(Node node, String key, Collection<V> values)
@@ -317,13 +325,18 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         return result;
     }
 
-    private Set<V> values(Node node)
+    private Set<ScoredObject<V>> values(Node node, Automaton matcher)
     {
         assert node != null;
-        Set<V> result = new HashSet<V>(node.values());
-        for (Node child : node.childNodes())
+        assert matcher != null;
+        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        for (V value : node.values())
         {
-            result.addAll(values(child));
+            result.add(new ScoredObject(value, matcher.getScore()));
+        }
+        for (Entry<String, Node> entry : node.childEntries())
+        {
+            result.addAll(values(entry.getValue(), matcher.step(entry.getKey())));
         }
         return result;
     }
@@ -443,6 +456,30 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
                 return Collections.<V>emptySet();
             }
             return values;
+        }
+    }
+
+    private class FuzzyMatch
+    {
+        private Node node;
+        private Automaton matcher;
+
+        FuzzyMatch(Node node, Automaton matcher)
+        {
+            assert node != null;
+            assert matcher != null;
+            this.node = node;
+            this.matcher = matcher;
+        }
+
+        Node getNode()
+        {
+            return node;
+        }
+
+        Automaton getMatcher()
+        {
+            return matcher;
         }
     }
 }

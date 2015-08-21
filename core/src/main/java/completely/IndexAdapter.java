@@ -1,5 +1,7 @@
 package completely;
 
+import completely.data.ScoredObject;
+
 import java.util.Collection;
 
 import javax.annotation.Nullable;
@@ -7,15 +9,15 @@ import javax.annotation.Nullable;
 /**
  * Adapter for any index data structure.
  */
-public interface IndexAdapter<V>
+public interface IndexAdapter<T>
 {
     /**
      * Returns a {@link Collection} of all values associated with a token.
      */
-    Collection<V> get(String token);
+    Collection<ScoredObject<T>> get(String token);
 
     /**
      * Associates a single value with a token.
      */
-    boolean put(String token, @Nullable V value);
+    boolean put(String token, @Nullable T value);
 }

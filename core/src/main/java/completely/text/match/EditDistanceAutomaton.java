@@ -14,8 +14,8 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
      */
     public EditDistanceAutomaton(String pattern, double threshold)
     {
-        super(pattern);
-        this.size = pattern.length() + 1;
+        super(pattern, "");
+        this.size = patternLength + 1;
         this.threshold = threshold;
         this.vector = new int[size];
         for (int i = 0; i < size; ++i)
@@ -24,18 +24,34 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
         }
     }
 
-    private EditDistanceAutomaton(String pattern, double threshold, int[] vector)
+    private EditDistanceAutomaton(String pattern, String word, double threshold, int[] vector)
     {
-        super(pattern);
-        this.size = pattern.length() + 1;
+        super(pattern, word);
+        this.size = patternLength + 1;
         this.threshold = threshold;
         this.vector = vector;
+    }
+
+    private int getDistance()
+    {
+        return vector[size - 1];
+    }
+
+    @Override
+    public double getScore()
+    {
+        int length = Math.max(patternLength, wordLength);
+        if (length == 0)
+        {
+            return 1;
+        }
+        return 1 - getDistance() / (double) length;
     }
 
     @Override
     public boolean isWordAccepted()
     {
-        return vector[size - 1] <= threshold;
+        return getDistance() <= threshold;
     }
 
     @Override
@@ -72,6 +88,6 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
                 newVector[i] = min(newVector[i - 1], vector[i], vector[i - 1]) + 1;
             }
         }
-        return new EditDistanceAutomaton(pattern, threshold, newVector);
+        return new EditDistanceAutomaton(pattern, word + symbol, threshold, newVector);
     }
 }

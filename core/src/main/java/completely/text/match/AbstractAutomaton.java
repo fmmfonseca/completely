@@ -7,21 +7,32 @@ import static completely.common.Precondition.checkPointer;
  */
 public abstract class AbstractAutomaton implements Automaton
 {
-    protected final String pattern;
+    protected final String pattern, word;
+    protected final int patternLength, wordLength;
 
     /**
      * @throws NullPointerException if {@code pattern} is null;
      */
-    protected AbstractAutomaton(String pattern)
+    protected AbstractAutomaton(String pattern, String word)
     {
         checkPointer(pattern != null);
+        checkPointer(word != null);
         this.pattern = pattern;
+        this.patternLength = pattern.length();
+        this.word = word;
+        this.wordLength = word.length();
     }
 
     @Override
     public String getPattern()
     {
         return pattern;
+    }
+
+    @Override
+    public String getWord()
+    {
+        return word;
     }
 
     /**

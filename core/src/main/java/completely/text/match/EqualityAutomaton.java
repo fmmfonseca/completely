@@ -5,45 +5,50 @@ package completely.text.match;
  */
 public final class EqualityAutomaton extends AbstractAutomaton
 {
-    private final int length;
     private final int count;
-    private final int index;
 
     /**
      * Constructs a new {@link EqualityAutomaton}.
      */
     public EqualityAutomaton(String pattern)
     {
-        super(pattern);
-        this.length = pattern.length();
+        super(pattern, "");
         this.count = 0;
-        this.index = 0;
     }
 
-    private EqualityAutomaton(String pattern, int count, int index)
+    private EqualityAutomaton(String pattern, String word, int count)
     {
-        super(pattern);
-        this.length = pattern.length();
+        super(pattern, word);
         this.count = count;
-        this.index = index;
+    }
+
+    @Override
+    public double getScore()
+    {
+        int length = Math.max(patternLength, wordLength);
+        if (length == 0)
+        {
+            return 1;
+        }
+        return count / (double) length;
     }
 
     @Override
     public boolean isWordAccepted()
     {
-        return count == length && index == length;
+        return count == patternLength && wordLength == patternLength;
     }
 
     @Override
     public boolean isWordRejected()
     {
-        return count != index;
+        return count != wordLength;
     }
 
     @Override
     public EqualityAutomaton step(char symbol)
     {
-        int newCount = count + (index < length && pattern.charAt(index) == symbol ? 1 : 0);
-        return new EqualityAutomaton(pattern, newCount, index + 1);
+        int newCount = count + (wordLength < patternLength && pattern.charAt(wordLength) == symbol ? 1 : 0);
+        return new EqualityAutomaton(pattern, word + symbol, newCount);
     }
 }

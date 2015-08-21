@@ -1,6 +1,7 @@
 package completely;
 
 import completely.data.SampleRecord;
+import completely.data.ScoredObject;
 import completely.text.index.FuzzyIndex;
 import completely.text.index.PatriciaTrie;
 import completely.text.match.EditDistanceAutomaton;
@@ -12,7 +13,7 @@ public class SampleAdapter implements IndexAdapter<SampleRecord>
     private FuzzyIndex<SampleRecord> index = new PatriciaTrie<SampleRecord>();
 
     @Override
-    public Collection<SampleRecord> get(String token)
+    public Collection<ScoredObject<SampleRecord>> get(String token)
     {
         return index.getAny(new EditDistanceAutomaton(token, Math.log(token.length())));
     }
