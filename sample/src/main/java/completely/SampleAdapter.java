@@ -15,7 +15,8 @@ public class SampleAdapter implements IndexAdapter<SampleRecord>
     @Override
     public Collection<ScoredObject<SampleRecord>> get(String token)
     {
-        return index.getAny(new EditDistanceAutomaton(token, Math.log(token.length())));
+        double threshold = Math.log(token.length() - 1);
+        return index.getAny(new EditDistanceAutomaton(token, threshold));
     }
 
     @Override
