@@ -78,7 +78,7 @@
                 <!-- http://maven.apache.org/plugins/maven-pmd-plugin/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.4</version>
+                <version>3.5</version>
                 <configuration>
                     <targetJdk>${java.version}</targetJdk>
                 </configuration>
