@@ -1,9 +1,10 @@
 package completely;
 
 import completely.data.SampleRecord;
-import completely.text.analyze.transform.LowerCaseTransformer;
+import completely.text.analyze.SampleAnalyzer;
 
 import java.io.Console;
+import java.util.Locale;
 
 public final class AutocompleteEngineSample
 {
@@ -14,36 +15,13 @@ public final class AutocompleteEngineSample
     {
         AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()
             .setIndex(new SampleAdapter())
-            .setAnalyzer(new LowerCaseTransformer())
+            .setAnalyzer(new SampleAnalyzer())
             .build();
 
-        String[] entries = {
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme",
-        };
-        for (String entry : entries)
+        for (String country : Locale.getISOCountries())
         {
-            engine.add(new SampleRecord(entry));
+            Locale locale = new Locale("", country);
+            engine.add(new SampleRecord(locale.getDisplayCountry()));
         }
 
         Console console = System.console();
