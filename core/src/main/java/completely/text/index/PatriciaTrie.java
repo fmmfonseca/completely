@@ -50,16 +50,16 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         Node node = find(root, key);
         if (node != null)
         {
-            return new HashSet<V>(node.values());
+            return new HashSet<>(node.values());
         }
-        return new HashSet<V>();
+        return new HashSet<>();
     }
 
     @Override
     public Set<ScoredObject<V>> getAny(String fragment)
     {
         checkPointer(fragment != null);
-        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        Set<ScoredObject<V>> result = new HashSet<>();
         for (FuzzyMatch match : findAll(root, new EqualityAutomaton(fragment), ""))
         {
             result.addAll(values(match.getNode(), match.getMatcher()));
@@ -71,7 +71,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     public Set<ScoredObject<V>> getAny(Automaton matcher)
     {
         checkPointer(matcher != null);
-        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        Set<ScoredObject<V>> result = new HashSet<>();
         for (FuzzyMatch match : findAll(root, matcher, ""))
         {
             result.addAll(values(match.getNode(), match.getMatcher()));
@@ -163,7 +163,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         }
         else if (!matcher.isWordRejected())
         {
-            List<FuzzyMatch> result = new LinkedList<FuzzyMatch>();
+            List<FuzzyMatch> result = new LinkedList<>();
             for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
@@ -171,7 +171,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             }
             return result;
         }
-        return Collections.<FuzzyMatch>emptyList();
+        return Collections.emptyList();
     }
 
     private boolean putAll(Node node, String key, Collection<V> values)
@@ -219,7 +219,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert node != null;
         assert values != null;
         boolean result = node.removeAllValues(values);
-        List<String> legacyEdges = new LinkedList<String>();
+        List<String> legacyEdges = new LinkedList<>();
         for (Iterator<Entry<String, Node>> iterator = node.childEntries().iterator(); iterator.hasNext();)
         {
             Entry<String, Node> entry = iterator.next();
@@ -276,7 +276,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
                 }
             }
         }
-        return Collections.<V>emptySet();
+        return Collections.emptySet();
     }
 
     private boolean removeAll(Node node, String key, Collection<V> values)
@@ -329,10 +329,10 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
     {
         assert node != null;
         assert matcher != null;
-        Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
+        Set<ScoredObject<V>> result = new HashSet<>();
         for (V value : node.values())
         {
-            result.add(new ScoredObject<V>(value, matcher.getScore()));
+            result.add(new ScoredObject<>(value, matcher.getScore()));
         }
         for (Entry<String, Node> entry : node.childEntries())
         {
@@ -351,7 +351,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             assert values != null;
             if (this.values == null)
             {
-                this.values = new ArraySet<V>();
+                this.values = new ArraySet<>();
             }
             return this.values.addAll(values);
         }
@@ -371,7 +371,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         {
             if (children == null)
             {
-                return Collections.<Entry<String, Node>>emptyList();
+                return Collections.emptyList();
             }
             return children.entrySet();
         }
@@ -380,7 +380,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         {
             if (children == null)
             {
-                return Collections.<Node>emptyList();
+                return Collections.emptyList();
             }
             return children.values();
         }
@@ -401,7 +401,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             assert value != null;
             if (children == null)
             {
-                children = new HashMap<String, Node>(4);
+                children = new HashMap<>(4);
             }
             return children.put(key, value);
         }
@@ -410,7 +410,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         {
             if (values == null)
             {
-                return new ArraySet<V>();
+                return new ArraySet<>();
             }
             Set<V> result = values;
             values = null;
@@ -453,7 +453,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         {
             if (values == null)
             {
-                return Collections.<V>emptySet();
+                return Collections.emptySet();
             }
             return values;
         }

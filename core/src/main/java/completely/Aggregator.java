@@ -38,7 +38,7 @@ public class Aggregator<T>
      */
     public Aggregator(@Nullable Comparator<ScoredObject<T>> comparator)
     {
-        this.scores = new HashMap<T, Double>();
+        this.scores = new HashMap<>();
         this.comparator = comparator;
     }
 
@@ -106,7 +106,7 @@ public class Aggregator<T>
     {
         checkPointer(elements != null);
         // Intersect
-        Collection<T> set = new HashSet<T>();
+        Collection<T> set = new HashSet<>();
         for (ScoredObject<T> element : elements)
         {
             checkPointer(element != null);
@@ -143,13 +143,13 @@ public class Aggregator<T>
      */
     public List<T> values()
     {
-        List<ScoredObject<T>> list = new ArrayList<ScoredObject<T>>();
+        List<ScoredObject<T>> list = new ArrayList<>();
         for (Entry<T, Double> entry : scores.entrySet())
         {
-            list.add(new ScoredObject<T>(entry.getKey(), entry.getValue()));
+            list.add(new ScoredObject<>(entry.getKey(), entry.getValue()));
         }
         Collections.sort(list, comparator);
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         for (ScoredObject<T> element : list)
         {
             result.add(element.getObject());

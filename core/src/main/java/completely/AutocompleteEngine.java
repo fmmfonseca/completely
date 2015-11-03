@@ -96,7 +96,7 @@ public final class AutocompleteEngine<T extends Indexable>
         read.lock();
         try
         {
-            Aggregator<T> aggregator = new Aggregator<T>(comparator);
+            Aggregator<T> aggregator = new Aggregator<>(comparator);
             Iterator<String> tokens = analyzer.apply(query).iterator();
             if (tokens.hasNext())
             {
@@ -151,7 +151,7 @@ public final class AutocompleteEngine<T extends Indexable>
                 @Override
                 public Collection<String> apply(Collection<String> input)
                 {
-                    return new ArrayList<String>(input);
+                    return new ArrayList<>(input);
                 }
             };
         }
@@ -187,10 +187,10 @@ public final class AutocompleteEngine<T extends Indexable>
                 @Override
                 public Collection<ScoredObject<T>> get(String token)
                 {
-                    List<ScoredObject<T>> result = new LinkedList<ScoredObject<T>>();
+                    List<ScoredObject<T>> result = new LinkedList<>();
                     for (T element : index.getAll(token))
                     {
-                        result.add(new ScoredObject<T>(element, 0));
+                        result.add(new ScoredObject<>(element, 0));
                     }
                     return result;
                 }
@@ -222,7 +222,7 @@ public final class AutocompleteEngine<T extends Indexable>
         {
             checkPointer(analyzer != null);
             checkPointer(index != null);
-            return new AutocompleteEngine<T>(this);
+            return new AutocompleteEngine<>(this);
         }
     }
 }

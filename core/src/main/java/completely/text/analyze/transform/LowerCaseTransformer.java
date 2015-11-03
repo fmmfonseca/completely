@@ -37,7 +37,7 @@ public class LowerCaseTransformer extends Analyzer
     public Collection<String> apply(Collection<String> input)
     {
         checkPointer(input != null);
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String text : input)
         {
             checkPointer(text != null);

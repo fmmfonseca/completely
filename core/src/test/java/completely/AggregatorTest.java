@@ -23,7 +23,7 @@ public class AggregatorTest
 
     public AggregatorTest()
     {
-        this.aggregator = new Aggregator<String>();
+        this.aggregator = new Aggregator<>();
         this.exceptionRule = ExpectedException.none();
     }
 
@@ -38,13 +38,13 @@ public class AggregatorTest
     @Test
     public void testAdd()
     {
-        assertTrue(aggregator.add(new ScoredObject<String>("a", 0)));
+        assertTrue(aggregator.add(new ScoredObject<>("a", 0)));
         assertEquals(1, aggregator.size());
-        assertFalse(aggregator.add(new ScoredObject<String>("a", 0)));
+        assertFalse(aggregator.add(new ScoredObject<>("a", 0)));
         assertEquals(1, aggregator.size());
-        assertTrue(aggregator.add(new ScoredObject<String>("b", 0)));
+        assertTrue(aggregator.add(new ScoredObject<>("b", 0)));
         assertEquals(2, aggregator.size());
-        assertTrue(aggregator.add(new ScoredObject<String>("a", 1)));
+        assertTrue(aggregator.add(new ScoredObject<>("a", 1)));
         assertEquals(2, aggregator.size());
     }
 
@@ -65,15 +65,15 @@ public class AggregatorTest
     @Test
     public void testRetain()
     {
-        aggregator.add(new ScoredObject<String>("a", 0));
-        aggregator.add(new ScoredObject<String>("b", 0));
-        assertTrue(aggregator.retain(new ScoredObject<String>("a", 0)));
+        aggregator.add(new ScoredObject<>("a", 0));
+        aggregator.add(new ScoredObject<>("b", 0));
+        assertTrue(aggregator.retain(new ScoredObject<>("a", 0)));
         assertEquals(1, aggregator.size());
-        assertTrue(aggregator.retain(new ScoredObject<String>("a", 1)));
+        assertTrue(aggregator.retain(new ScoredObject<>("a", 1)));
         assertEquals(1, aggregator.size());
-        assertTrue(aggregator.retain(new ScoredObject<String>("a", 1)));
+        assertTrue(aggregator.retain(new ScoredObject<>("a", 1)));
         assertEquals(1, aggregator.size());
-        assertTrue(aggregator.retain(new ScoredObject<String>("b", 0)));
+        assertTrue(aggregator.retain(new ScoredObject<>("b", 0)));
         assertEquals(0, aggregator.size());
     }
 
@@ -94,8 +94,8 @@ public class AggregatorTest
     @Test
     public void testValues()
     {
-        aggregator.add(new ScoredObject<String>("a", 0));
-        aggregator.add(new ScoredObject<String>("b", 0));
+        aggregator.add(new ScoredObject<>("a", 0));
+        aggregator.add(new ScoredObject<>("b", 0));
         List<String> result = aggregator.values();
         assertEquals(2, result.size());
     }
@@ -103,10 +103,10 @@ public class AggregatorTest
     @Test
     public void testValuesOrder()
     {
-        aggregator.add(new ScoredObject<String>("c", 0));
-        aggregator.add(new ScoredObject<String>("b", 0));
-        aggregator.add(new ScoredObject<String>("b", 1));
-        aggregator.add(new ScoredObject<String>("a", 2));
+        aggregator.add(new ScoredObject<>("c", 0));
+        aggregator.add(new ScoredObject<>("b", 0));
+        aggregator.add(new ScoredObject<>("b", 1));
+        aggregator.add(new ScoredObject<>("a", 2));
         List<String> result = aggregator.values();
         assertEquals("a", result.get(0));
         assertEquals("b", result.get(1));

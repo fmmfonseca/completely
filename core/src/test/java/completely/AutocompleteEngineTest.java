@@ -24,7 +24,7 @@ public class AutocompleteEngineTest
     {
         this.exceptionRule = ExpectedException.none();
         this.engine = new AutocompleteEngine.Builder<TestRecord>()
-            .setIndex(new HashMultiMap<TestRecord>())
+            .setIndex(new HashMultiMap<>())
             .build();
     }
 
@@ -32,7 +32,7 @@ public class AutocompleteEngineTest
     public void testCreateEmpty()
     {
         exceptionRule.expect(NullPointerException.class);
-        new AutocompleteEngine.Builder<TestRecord>().build();
+        new AutocompleteEngine.Builder().build();
     }
 
     @Test

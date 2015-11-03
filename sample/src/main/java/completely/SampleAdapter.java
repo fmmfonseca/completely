@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public class SampleAdapter implements IndexAdapter<SampleRecord>
 {
-    private FuzzyIndex<SampleRecord> index = new PatriciaTrie<SampleRecord>();
+    private FuzzyIndex<SampleRecord> index = new PatriciaTrie<>();
 
     @Override
     public Collection<ScoredObject<SampleRecord>> get(String token)
