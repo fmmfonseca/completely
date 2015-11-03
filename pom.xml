@@ -44,7 +44,7 @@
                 <!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.8.1</version>
             </plugin>
             <plugin>
                 <!-- http://mojo.codehaus.org/cobertura-maven-plugin/ -->
