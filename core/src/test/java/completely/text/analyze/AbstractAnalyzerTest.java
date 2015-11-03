@@ -24,6 +24,6 @@ public abstract class AbstractAnalyzerTest<T extends Analyzer>
     public void testApplyNull()
     {
         exceptionRule.expect(NullPointerException.class);
-        analyzer.apply((Collection) null);
+        analyzer.apply((Collection<String>) null);
     }
 }

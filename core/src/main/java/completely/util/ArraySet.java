@@ -175,6 +175,7 @@ public class ArraySet<E> extends AbstractSet<E> implements Set<E>
             return cursor < array.length;
         }
 
+        @SuppressWarnings("unchecked")
         public E next()
         {
             checkElement(hasNext());

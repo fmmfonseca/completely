@@ -332,7 +332,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         Set<ScoredObject<V>> result = new HashSet<ScoredObject<V>>();
         for (V value : node.values())
         {
-            result.add(new ScoredObject(value, matcher.getScore()));
+            result.add(new ScoredObject<V>(value, matcher.getScore()));
         }
         for (Entry<String, Node> entry : node.childEntries())
         {

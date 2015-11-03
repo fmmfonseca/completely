@@ -202,6 +202,6 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     public void testRemoveAllNullValues()
     {
         exceptionRule.expect(NullPointerException.class);
-        index.removeAll((Collection) null);
+        index.removeAll((Collection<Object>) null);
     }
 }
