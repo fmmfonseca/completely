@@ -5,9 +5,6 @@
 
 <!-- http://checkstyle.sourceforge.net/config.html#Checker -->
 <module name="Checker">
-    <!-- http://checkstyle.sourceforge.net/config_duplicates.html -->
-    <module name="StrictDuplicateCode"/>
-
     <!-- http://checkstyle.sourceforge.net/config_header.html -->
     <!-- <module name="Header"/> -->
     <!-- <module name="RegexpHeader"/> -->
@@ -87,7 +84,6 @@
         <module name="IllegalTokenText"/>
         <module name="IllegalType"/>
         <module name="InnerAssignment"/>
-        <module name="JUnitTestCase"/>
         <!-- <module name="MagicNumber"/> -->
         <!-- <module name="MissingCtor"/> -->
         <module name="MissingSwitchDefault"/>
@@ -102,7 +98,6 @@
         <module name="OneStatementPerLine"/>
         <module name="PackageDeclaration"/>
         <module name="ParameterAssignment"/>
-        <module name="RedundantThrows"/>
         <!-- <module name="RequireThis"/> -->
         <!-- <module name="ReturnCount"/> -->
         <module name="SimplifyBooleanExpression"/>
