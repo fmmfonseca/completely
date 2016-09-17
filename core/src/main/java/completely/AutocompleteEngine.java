@@ -71,10 +71,7 @@ public final class AutocompleteEngine<T extends Indexable>
                 {
                     for (String token : analyzer.apply(field))
                     {
-                        if (index.put(token, element))
-                        {
-                            result = true;
-                        }
+                        result |= index.put(token, element);
                     }
                 }
             }
@@ -111,10 +108,7 @@ public final class AutocompleteEngine<T extends Indexable>
             write.lock();
             try
             {
-                if(index.remove(element))
-                {
-                    result = true;
-                }
+                result |= index.remove(element);
             }
             finally
             {
