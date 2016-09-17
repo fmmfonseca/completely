@@ -20,4 +20,9 @@ public interface IndexAdapter<T>
      * Associates a single value with a token.
      */
     boolean put(String token, @Nullable T value);
+
+    /**
+     * Removes a single value associated with any tokens.
+     */
+    boolean remove(T value);
 }

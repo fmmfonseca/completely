@@ -87,6 +87,44 @@ public final class AutocompleteEngine<T extends Indexable>
     }
 
     /**
+     * Removes a single element.
+     *
+     * @throws NullPointerException if {@code element} is null;
+     */
+    public boolean remove(T element)
+    {
+        return removeAll(Arrays.asList(element));
+    }
+
+    /**
+     * Removes a collection of elements.
+     *
+     * @throws NullPointerException if {@code elements} is null or contains a null element;
+     */
+    public boolean removeAll(Collection<T> elements)
+    {
+        checkPointer(elements != null);
+        boolean result = false;
+        for (T element : elements)
+        {
+            checkPointer(element != null);
+            write.lock();
+            try
+            {
+                if(index.remove(element))
+                {
+                    result = true;
+                }
+            }
+            finally
+            {
+                write.unlock();
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns a {@link List} of all elements that match a query, sorted
      * according to the default comparator.
      */
@@ -199,6 +237,12 @@ public final class AutocompleteEngine<T extends Indexable>
                 public boolean put(String token, T value)
                 {
                     return index.put(token, value);
+                }
+
+                @Override
+                public boolean remove(T value)
+                {
+                    return index.remove(value);
                 }
             });
         }

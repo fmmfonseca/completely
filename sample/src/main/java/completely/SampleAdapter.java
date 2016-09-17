@@ -24,4 +24,10 @@ public class SampleAdapter implements IndexAdapter<SampleRecord>
     {
         return index.put(token, value);
     }
+
+    @Override
+    public boolean remove(SampleRecord value)
+    {
+        return index.remove(value);
+    }
 }

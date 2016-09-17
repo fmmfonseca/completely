@@ -58,6 +58,29 @@ public class AutocompleteEngineTest
     }
 
     @Test
+    public void testRemove()
+    {
+        TestRecord record = new TestRecord("a");
+        engine.add(record);
+        assertTrue(engine.remove(record));
+        assertFalse(engine.remove(record));
+    }
+
+    @Test
+    public void testRemoveNull()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        engine.remove(null);
+    }
+
+    @Test
+    public void testRemoveAllNull()
+    {
+        exceptionRule.expect(NullPointerException.class);
+        engine.removeAll(null);
+    }
+
+    @Test
     public void testSearch()
     {
         engine.add(new TestRecord("a", "b"));
