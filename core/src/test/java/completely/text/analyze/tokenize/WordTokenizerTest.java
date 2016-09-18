@@ -16,16 +16,13 @@ public class WordTokenizerTest extends AbstractAnalyzerTest<WordTokenizer>
     @Test
     public void testApply()
     {
-        Object[] result = analyzer.apply("Lorem ipsum dolor sit amet, consectetur adipiscing elit.").toArray();
-        assertEquals(8, result.length);
+        Object[] result = analyzer.apply("Lorem ipsum, dolor sit amet.").toArray();
+        assertEquals(5, result.length);
         assertEquals("Lorem", result[0]);
         assertEquals("ipsum", result[1]);
         assertEquals("dolor", result[2]);
         assertEquals("sit", result[3]);
         assertEquals("amet", result[4]);
-        assertEquals("consectetur", result[5]);
-        assertEquals("adipiscing", result[6]);
-        assertEquals("elit", result[7]);
     }
 
     @Test

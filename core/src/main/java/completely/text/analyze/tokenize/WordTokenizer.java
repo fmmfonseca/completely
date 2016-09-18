@@ -33,7 +33,11 @@ public class WordTokenizer extends Analyzer
         {
             checkPointer(text != null);
             boundary.setText(text.toString());
-            for (int start = boundary.first(), end = boundary.next(); end != BreakIterator.DONE; start = end, end = boundary.next())
+            for (
+                int start = boundary.first(), end = boundary.next();
+                end != BreakIterator.DONE;
+                start = end, end = boundary.next()
+            )
             {
                 String word = text.substring(start, end);
                 if (Character.isLetterOrDigit(word.charAt(0)))

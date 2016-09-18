@@ -48,7 +48,8 @@ public final class EqualityAutomaton extends AbstractAutomaton
     @Override
     public EqualityAutomaton step(char symbol)
     {
-        int newCount = count + (wordLength < patternLength && pattern.charAt(wordLength) == symbol ? 1 : 0);
+        boolean match = wordLength < patternLength && pattern.charAt(wordLength) == symbol;
+        int newCount = count + (match ? 1 : 0);
         return new EqualityAutomaton(pattern, word + symbol, newCount);
     }
 }

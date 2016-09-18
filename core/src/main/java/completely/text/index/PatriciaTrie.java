@@ -167,7 +167,8 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             for (Entry<String, Node> entry : node.childEntries())
             {
                 String edge = entry.getKey();
-                result.addAll(findAll(entry.getValue(), matcher.stepUntilWordAccepted(edge), word + edge));
+                Node child = entry.getValue();
+                result.addAll(findAll(child, matcher.stepUntilWordAccepted(edge), word + edge));
             }
             return result;
         }
@@ -220,7 +221,8 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         assert values != null;
         boolean result = node.removeAllValues(values);
         List<String> legacyEdges = new LinkedList<>();
-        for (Iterator<Entry<String, Node>> iterator = node.childEntries().iterator(); iterator.hasNext();)
+        Iterator<Entry<String, Node>> iterator = node.childEntries().iterator();
+        while (iterator.hasNext())
         {
             Entry<String, Node> entry = iterator.next();
             String edge = entry.getKey();
