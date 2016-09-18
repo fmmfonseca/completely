@@ -146,6 +146,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         return null;
     }
 
+    @SuppressWarnings("checkstyle:parameterassignment")
     private Collection<FuzzyMatch> findAll(Node node, Automaton matcher, String word)
     {
         assert node != null;
@@ -348,6 +349,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         private Map<String, Node> children;
         private Set<V> values;
 
+        @SuppressWarnings("checkstyle:hiddenfield")
         boolean addAllValues(Collection<V> values)
         {
             assert values != null;
@@ -419,6 +421,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             return result;
         }
 
+        @SuppressWarnings("checkstyle:hiddenfield")
         boolean removeAllValues(Collection<V> values)
         {
             assert values != null;

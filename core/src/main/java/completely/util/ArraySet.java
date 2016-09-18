@@ -16,7 +16,6 @@ import static completely.common.Precondition.checkPointer;
  *
  * <p>Note that this implementation is not synchronized.
  */
-@SuppressWarnings("checkstyle:illegaltoken")
 public class ArraySet<E> extends AbstractSet<E> implements Set<E>
 {
     protected Object[] array;
@@ -135,6 +134,7 @@ public class ArraySet<E> extends AbstractSet<E> implements Set<E>
         return true;
     }
 
+    @SuppressWarnings("checkstyle:hiddenfield")
     private int indexOf(Object element, Object[] array, int fromIndex, int toIndex)
     {
         assert array != null;
