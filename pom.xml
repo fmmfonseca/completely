@@ -7,6 +7,7 @@
   <packaging>pom</packaging>
   <name>completely</name>
   <description>Java autocomplete library</description>
+  <url>http://miguelfonseca.com/completely</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -17,12 +18,28 @@
   <developers>
     <developer>
       <name>Miguel Fonseca</name>
+      <email>contact@miguelfonseca.com</email>
     </developer>
   </developers>
   <modules>
     <module>core</module>
     <module>sample</module>
   </modules>
+  <scm>
+    <connection>scm:git:git://github.com/fmmfonseca/completely.git</connection>
+    <developerConnection>scm:git:ssh://github.com:fmmfonseca/completely.git</developerConnection>
+    <url>http://github.com/fmmfonseca/completely/tree/master</url>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <properties>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -49,6 +66,49 @@
             <arg>-Xlint</arg>
           </compilerArgs>
         </configuration>
+      </plugin>
+      <plugin>
+        <!-- https://maven.apache.org/plugins/maven-gpg-plugin/ -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/ -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- https://maven.apache.org/plugins/maven-source-plugin/ -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

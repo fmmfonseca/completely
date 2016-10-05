@@ -8,6 +8,10 @@
   </parent>
   <artifactId>completely-sample</artifactId>
   <name>completely-sample</name>
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+    <maven.install.skip>true</maven.install.skip>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
