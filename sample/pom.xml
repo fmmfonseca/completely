@@ -7,7 +7,7 @@
         <artifactId>completely</artifactId>
         <version>0.4.0</version>
     </parent>
-    <artifactId>sample</artifactId>
+    <artifactId>completely-sample</artifactId>
     <name>completely-sample</name>
     <build>
         <plugins>
