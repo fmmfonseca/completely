@@ -7,6 +7,18 @@
   <packaging>pom</packaging>
   <name>completely</name>
   <description>Java autocomplete library</description>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Miguel Fonseca</name>
+    </developer>
+  </developers>
   <modules>
     <module>core</module>
     <module>sample</module>
@@ -15,6 +27,13 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+  </dependencies>
   <build>
     <finalName>${project.name}-${project.version}</finalName>
     <plugins>
@@ -33,21 +52,8 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.1</version>
-    </dependency>
-  </dependencies>
   <reporting>
     <plugins>
-      <plugin>
-        <!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/ -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.9</version>
-      </plugin>
       <plugin>
         <!-- http://mojo.codehaus.org/cobertura-maven-plugin/ -->
         <groupId>org.codehaus.mojo</groupId>
@@ -91,18 +97,12 @@
           <targetJdk>${java.version}</targetJdk>
         </configuration>
       </plugin>
+      <plugin>
+        <!-- https://maven.apache.org/plugins/maven-project-info-reports-plugin/ -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.9</version>
+      </plugin>
     </plugins>
   </reporting>
-  <developers>
-    <developer>
-      <name>Miguel Fonseca</name>
-    </developer>
-  </developers>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
 </project>

@@ -2,12 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.miguelfonseca.completely</groupId>
     <artifactId>completely</artifactId>
+    <groupId>com.miguelfonseca.completely</groupId>
     <version>0.4.0</version>
   </parent>
   <artifactId>completely-sample</artifactId>
   <name>completely-sample</name>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>completely-core</artifactId>
+      <version>0.4.0</version>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
@@ -20,11 +27,4 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>completely-core</artifactId>
-      <version>0.4.0</version>
-    </dependency>
-  </dependencies>
 </project>
