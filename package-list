@@ -1,0 +1,10 @@
+com.miguelfonseca.completely
+com.miguelfonseca.completely.common
+com.miguelfonseca.completely.data
+com.miguelfonseca.completely.text.analyze
+com.miguelfonseca.completely.text.analyze.filter
+com.miguelfonseca.completely.text.analyze.tokenize
+com.miguelfonseca.completely.text.analyze.transform
+com.miguelfonseca.completely.text.index
+com.miguelfonseca.completely.text.match
+com.miguelfonseca.completely.util
