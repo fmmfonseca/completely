@@ -12,6 +12,10 @@ Needless to say, a standard sequential search is bound to be ineffective for any
 
 Together these can used to tackle a variety of use cases, wherein the choice of components or combination thereof depends solely on the application at hand.
 
+# Download
+
+All release artifacts are available for download from the [Maven central repository](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.miguelfonseca.completely%22).
+
 # Build from source
 
 Building *Completely* requires Maven 3 and Java 8, or newer.
