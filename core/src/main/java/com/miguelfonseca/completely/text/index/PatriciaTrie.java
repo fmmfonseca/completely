@@ -363,6 +363,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
         Node bisect(String key, int pivot)
         {
             assert key != null;
+            assert pivot >= 0;
             String prefix = key.substring(0, pivot);
             String suffix = key.substring(pivot);
             Node child = new Node();

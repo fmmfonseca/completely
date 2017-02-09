@@ -138,6 +138,8 @@ public class ArraySet<E> extends AbstractSet<E> implements Set<E>
     private int indexOf(Object element, Object[] array, int fromIndex, int toIndex)
     {
         assert array != null;
+        assert fromIndex >= 0;
+        assert toIndex >= 0;
         if (element == null)
         {
             for (int i = fromIndex; i < toIndex; ++i)

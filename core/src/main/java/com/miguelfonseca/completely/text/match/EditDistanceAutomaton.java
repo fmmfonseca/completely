@@ -33,6 +33,7 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
     private EditDistanceAutomaton(String pattern, String word, double threshold, int[] vector)
     {
         super(pattern, word);
+        assert threshold >= 0;
         this.size = patternLength + 1;
         this.threshold = threshold;
         this.vector = vector;

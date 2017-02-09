@@ -21,6 +21,7 @@ public final class EqualityAutomaton extends AbstractAutomaton
     private EqualityAutomaton(String pattern, String word, int count)
     {
         super(pattern, word);
+        assert count >= 0;
         this.count = count;
     }
 
