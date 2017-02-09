@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nullable;
 
+import static com.miguelfonseca.completely.common.Precondition.checkArgument;
 import static com.miguelfonseca.completely.common.Precondition.checkPointer;
 
 /**
@@ -157,9 +158,11 @@ public final class AutocompleteEngine<T extends Indexable>
      * according to the default comparator.
      *
      * @throws NullPointerException if {@code query} is null;
+     * @throws IllegalArgumentException if {@code limit} is negative;
      */
     public List<T> search(String query, int limit)
     {
+        checkArgument(limit >= 0);
         List<T> result = search(query);
         if (result.size() > limit)
         {

@@ -102,6 +102,13 @@ public class AutocompleteEngineTest
     }
 
     @Test
+    public void testSearchNegativeLimit()
+    {
+        exceptionRule.expect(IllegalArgumentException.class);
+        engine.search("", -1);
+    }
+
+    @Test
     public void testSearchNullQuery()
     {
         exceptionRule.expect(NullPointerException.class);

@@ -1,5 +1,7 @@
 package com.miguelfonseca.completely.text.match;
 
+import static com.miguelfonseca.completely.common.Precondition.checkArgument;
+
 /**
  * Nondeterministic automaton simulator that matches words within edit distance.
  */
@@ -13,10 +15,12 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
      * Constructs a new {@link EditDistanceAutomaton}.
      *
      * @throws NullPointerException if {@code pattern} is null;
+     * @throws IllegalArgumentException if {@code threshold} is negative;
      */
     public EditDistanceAutomaton(String pattern, double threshold)
     {
         super(pattern, "");
+        checkArgument(threshold >= 0);
         this.size = patternLength + 1;
         this.threshold = threshold;
         this.vector = new int[size];

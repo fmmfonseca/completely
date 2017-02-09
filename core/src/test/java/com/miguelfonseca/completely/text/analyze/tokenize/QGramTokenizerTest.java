@@ -14,6 +14,13 @@ public class QGramTokenizerTest extends AbstractAnalyzerTest<QGramTokenizer>
     }
 
     @Test
+    public void testCreateNegativeSize()
+    {
+        exceptionRule.expect(IllegalArgumentException.class);
+        new QGramTokenizer(-1);
+    }
+
+    @Test
     public void testApply()
     {
         Object[] result = analyzer.apply("abcde").toArray();

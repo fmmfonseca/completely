@@ -10,6 +10,13 @@ import static org.junit.Assert.assertTrue;
 public class EditDistanceAutomatonTest extends AbstractAutomatonTest<EditDistanceAutomaton>
 {
     @Test
+    public void testCreateNegativeThreshold()
+    {
+        exceptionRule.expect(IllegalArgumentException.class);
+        new EditDistanceAutomaton("", -1D);
+    }
+
+    @Test
     public void testCreateNullPattern()
     {
         exceptionRule.expect(NullPointerException.class);

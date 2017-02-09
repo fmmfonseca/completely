@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.miguelfonseca.completely.common.Precondition.checkArgument;
 import static com.miguelfonseca.completely.common.Precondition.checkPointer;
 
 /**
@@ -17,9 +18,12 @@ public class QGramTokenizer extends Analyzer
 
     /**
      * Constructs a new {@link QGramTokenizer}.
+     *
+     * @throws IllegalArgumentException if {@code size} is negative;
      */
     public QGramTokenizer(int size)
     {
+        checkArgument(size >= 0);
         this.size = size;
     }
 
