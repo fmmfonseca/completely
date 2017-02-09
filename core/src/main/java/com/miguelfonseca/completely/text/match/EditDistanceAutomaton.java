@@ -11,6 +11,8 @@ public final class EditDistanceAutomaton extends AbstractAutomaton
 
     /**
      * Constructs a new {@link EditDistanceAutomaton}.
+     *
+     * @throws NullPointerException if {@code pattern} is null;
      */
     public EditDistanceAutomaton(String pattern, double threshold)
     {

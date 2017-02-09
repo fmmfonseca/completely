@@ -9,6 +9,8 @@ public final class EqualityAutomaton extends AbstractAutomaton
 
     /**
      * Constructs a new {@link EqualityAutomaton}.
+     *
+     * @throws NullPointerException if {@code pattern} is null;
      */
     public EqualityAutomaton(String pattern)
     {

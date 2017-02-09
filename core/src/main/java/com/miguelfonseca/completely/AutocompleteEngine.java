@@ -121,6 +121,8 @@ public final class AutocompleteEngine<T extends Indexable>
     /**
      * Returns a {@link List} of all elements that match a query, sorted
      * according to the default comparator.
+     *
+     * @throws NullPointerException if {@code query} is null;
      */
     public List<T> search(String query)
     {
@@ -153,6 +155,8 @@ public final class AutocompleteEngine<T extends Indexable>
     /**
      * Returns a {@link List} of the top elements that match a query, sorted
      * according to the default comparator.
+     *
+     * @throws NullPointerException if {@code query} is null;
      */
     public List<T> search(String query, int limit)
     {

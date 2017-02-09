@@ -12,6 +12,7 @@ public abstract class AbstractAutomaton implements Automaton
 
     /**
      * @throws NullPointerException if {@code pattern} is null;
+     * @throws NullPointerException if {@code word} is null;
      */
     protected AbstractAutomaton(String pattern, String word)
     {

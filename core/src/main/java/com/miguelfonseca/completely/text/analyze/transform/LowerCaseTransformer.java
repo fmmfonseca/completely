@@ -26,6 +26,8 @@ public class LowerCaseTransformer extends Analyzer
 
     /**
      * Constructs a new {@link LowerCaseTransformer}.
+     *
+     * @throws NullPointerException if {@code locale} is null;
      */
     public LowerCaseTransformer(Locale locale)
     {
