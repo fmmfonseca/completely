@@ -1,7 +1,8 @@
 package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.SampleRecord;
-import com.miguelfonseca.completely.text.analyze.SampleAnalyzer;
+import com.miguelfonseca.completely.text.analyze.tokenize.WordTokenizer;
+import com.miguelfonseca.completely.text.analyze.transform.LowerCaseTransformer;
 
 import java.io.Console;
 import java.util.Locale;
@@ -15,7 +16,7 @@ public final class AutocompleteEngineSample
     {
         AutocompleteEngine<SampleRecord> engine = new AutocompleteEngine.Builder<SampleRecord>()
             .setIndex(new SampleAdapter())
-            .setAnalyzer(new SampleAnalyzer())
+            .setAnalyzers(new LowerCaseTransformer(), new WordTokenizer())
             .build();
 
         for (String country : Locale.getISOCountries())

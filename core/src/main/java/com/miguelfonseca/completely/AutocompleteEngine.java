@@ -3,6 +3,7 @@ package com.miguelfonseca.completely;
 import com.miguelfonseca.completely.data.Indexable;
 import com.miguelfonseca.completely.data.ScoredObject;
 import com.miguelfonseca.completely.text.analyze.Analyzer;
+import com.miguelfonseca.completely.text.analyze.ChainedAnalyzer;
 import com.miguelfonseca.completely.text.index.Index;
 
 import java.util.ArrayList;
@@ -201,6 +202,15 @@ public final class AutocompleteEngine<T extends Indexable>
         public Builder<T> setAnalyzer(Analyzer analyzer)
         {
             this.analyzer = analyzer;
+            return this;
+        }
+
+        /**
+         * Set the analyzer.
+         */
+        public Builder<T> setAnalyzers(Analyzer... analyzers)
+        {
+            this.analyzer = new ChainedAnalyzer(analyzers);
             return this;
         }
 
