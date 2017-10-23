@@ -406,7 +406,7 @@ public class PatriciaTrie<V> extends AbstractIndex<V> implements FuzzyIndex<V>
             assert value != null;
             if (children == null)
             {
-                children = new HashMap<>(4);
+                children = new HashMap<>(0);
             }
             return children.put(key, value);
         }
