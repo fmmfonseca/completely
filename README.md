@@ -6,9 +6,9 @@ Autocomplete involves predicting a word or phrase that the user may type based o
 
 Needless to say, a standard sequential search is bound to be ineffective for anything other than small data sets. By contrast, *Completely* relies on text preprocessing to create an in-memory index for efficiently answering searches in large data sets. All in all, there are three fundamental components at play:
 
-* [Analyzer](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/com/miguelfonseca/completely/text/analyze) function to filter, tokenize or transform text;
+* [Analyzer](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/com/miguelfonseca/completely/text/analyze) function to filter, tokenize and/or transform text prior to indexing;
 * [Index](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/com/miguelfonseca/completely/text/index) data structure for storing the mapping of text to the corresponding sources;
-* [Automaton](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/com/miguelfonseca/completely/text/match) engine for text matching;
+* [Automaton](https://github.com/fmmfonseca/completely/tree/master/core/src/main/java/com/miguelfonseca/completely/text/match) engine for text matching when searching;
 
 Together these can used to tackle a variety of use cases, wherein the choice of components or combination thereof depends solely on the application at hand.
 
