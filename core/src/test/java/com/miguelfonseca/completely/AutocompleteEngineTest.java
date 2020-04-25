@@ -32,7 +32,7 @@ public class AutocompleteEngineTest
     public void testCreateEmpty()
     {
         exceptionRule.expect(NullPointerException.class);
-        new AutocompleteEngine.Builder().build();
+        new AutocompleteEngine.Builder<TestRecord>().build();
     }
 
     @Test

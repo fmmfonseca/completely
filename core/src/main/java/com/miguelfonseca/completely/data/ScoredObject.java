@@ -9,7 +9,7 @@ import static com.miguelfonseca.completely.common.Precondition.checkPointer;
 /**
  * Decorator for scoring any object.
  */
-public class ScoredObject<T> implements Comparable<ScoredObject>
+public class ScoredObject<T> implements Comparable<ScoredObject<T>>
 {
     private final T object;
     private final Double score;
@@ -40,7 +40,7 @@ public class ScoredObject<T> implements Comparable<ScoredObject>
     }
 
     @Override
-    public int compareTo(ScoredObject other)
+    public int compareTo(ScoredObject<T> other)
     {
         checkPointer(other != null);
         return Double.compare(other.score, score);
