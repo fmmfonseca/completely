@@ -16,7 +16,7 @@ import static com.miguelfonseca.completely.common.Precondition.checkPointer;
  *
  * <p>Note that this implementation is not synchronized.
  */
-public class ArraySet<E> extends AbstractSet<E> implements Set<E>
+public class ArraySet<E> extends AbstractSet<E>
 {
     protected Object[] array;
 

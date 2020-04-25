@@ -15,7 +15,7 @@ import static com.miguelfonseca.completely.common.Precondition.checkPointer;
  *
  * <p>Note that this implementation is not synchronized.
  */
-public class HashMultiMap<V> extends AbstractIndex<V> implements Index<V>
+public class HashMultiMap<V> extends AbstractIndex<V>
 {
     private final Map<String, Set<V>> map;
 
