@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.analyze;
 
 import com.miguelfonseca.completely.text.analyze.tokenize.QGramTokenizer;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

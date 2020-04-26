@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.analyze.transform;
 
 import com.miguelfonseca.completely.text.analyze.AbstractAnalyzerTest;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

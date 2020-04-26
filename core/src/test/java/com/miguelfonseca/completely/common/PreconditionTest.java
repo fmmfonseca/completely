@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.common;
 
 import java.util.NoSuchElementException;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

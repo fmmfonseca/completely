@@ -1,9 +1,7 @@
 package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.ScoredObject;
-
 import java.util.List;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.index;
 
 import java.util.Collection;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

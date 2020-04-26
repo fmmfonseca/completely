@@ -3,7 +3,6 @@ package com.miguelfonseca.completely;
 import com.miguelfonseca.completely.data.SampleRecord;
 import com.miguelfonseca.completely.text.analyze.tokenize.WordTokenizer;
 import com.miguelfonseca.completely.text.analyze.transform.LowerCaseTransformer;
-
 import java.io.Console;
 import java.util.Locale;
 

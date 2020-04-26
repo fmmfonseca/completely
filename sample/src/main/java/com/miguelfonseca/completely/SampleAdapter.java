@@ -5,7 +5,6 @@ import com.miguelfonseca.completely.data.ScoredObject;
 import com.miguelfonseca.completely.text.index.FuzzyIndex;
 import com.miguelfonseca.completely.text.index.PatriciaTrie;
 import com.miguelfonseca.completely.text.match.EditDistanceAutomaton;
-
 import java.util.Collection;
 
 public class SampleAdapter implements IndexAdapter<SampleRecord>

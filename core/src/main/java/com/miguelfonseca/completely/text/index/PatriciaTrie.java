@@ -5,7 +5,6 @@ import com.miguelfonseca.completely.data.ScoredObject;
 import com.miguelfonseca.completely.text.match.Automaton;
 import com.miguelfonseca.completely.text.match.EqualityAutomaton;
 import com.miguelfonseca.completely.util.ArraySet;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;

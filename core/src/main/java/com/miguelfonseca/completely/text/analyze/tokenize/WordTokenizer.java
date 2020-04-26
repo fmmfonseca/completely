@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.analyze.tokenize;
 
 import com.miguelfonseca.completely.text.analyze.Analyzer;
-
 import java.text.BreakIterator;
 import java.util.Collection;
 import java.util.LinkedList;

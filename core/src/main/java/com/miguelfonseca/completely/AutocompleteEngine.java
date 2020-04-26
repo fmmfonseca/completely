@@ -5,7 +5,6 @@ import com.miguelfonseca.completely.data.ScoredObject;
 import com.miguelfonseca.completely.text.analyze.Analyzer;
 import com.miguelfonseca.completely.text.analyze.ChainedAnalyzer;
 import com.miguelfonseca.completely.text.index.Index;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import javax.annotation.Nullable;
 
 import static com.miguelfonseca.completely.common.Precondition.checkArgument;

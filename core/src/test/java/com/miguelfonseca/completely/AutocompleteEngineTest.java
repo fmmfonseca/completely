@@ -2,7 +2,6 @@ package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.TestRecord;
 import com.miguelfonseca.completely.text.index.HashMultiMap;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

@@ -1,9 +1,7 @@
 package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.ScoredObject;
-
 import java.util.Collection;
-
 import javax.annotation.Nullable;
 
 /**

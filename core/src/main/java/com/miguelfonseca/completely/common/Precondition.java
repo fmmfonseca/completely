@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.common;
 
 import java.util.NoSuchElementException;
-
 import javax.annotation.Nullable;
 
 /**

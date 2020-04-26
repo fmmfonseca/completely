@@ -2,7 +2,6 @@ package com.miguelfonseca.completely.text.index;
 
 import com.miguelfonseca.completely.data.ScoredObject;
 import com.miguelfonseca.completely.text.match.Automaton;
-
 import java.util.Set;
 
 /**

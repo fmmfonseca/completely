@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.index;
 
 import java.util.Arrays;
-
 import javax.annotation.Nullable;
 
 /**

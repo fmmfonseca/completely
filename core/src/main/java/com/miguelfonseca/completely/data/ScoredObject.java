@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.data;
 
 import java.util.Objects;
-
 import javax.annotation.Nullable;
 
 import static com.miguelfonseca.completely.common.Precondition.checkPointer;

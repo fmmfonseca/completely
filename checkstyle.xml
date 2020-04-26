@@ -14,6 +14,10 @@
   <module name="Translation"/>
   <!-- http://checkstyle.sourceforge.net/config_sizes.html -->
   <module name="FileLength"/>
+  <module name="LineLength">
+    <property name="fileExtensions" value="java"/>
+    <property name="max" value="100"/>
+  </module>
   <!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
   <module name="FileTabCharacter"/>
   <!-- http://checkstyle.sourceforge.net/config.html#SuppressWarningsFilter -->
@@ -100,8 +104,9 @@
     <module name="IllegalImport"/>
     <!-- <module name="ImportControl"/> -->
     <module name="ImportOrder">
+      <property name="option" value="bottom"/>
       <property name="ordered" value="true"/>
-      <property name="separated" value="true"/>
+      <property name="separatedStaticGroups" value="true"/>
     </module>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
@@ -148,9 +153,6 @@
     <!-- http://checkstyle.sourceforge.net/config_sizes.html -->
     <!-- <module name="AnonInnerLength"/> -->
     <module name="ExecutableStatementCount"/>
-    <module name="LineLength">
-      <property name="max" value="100"/>
-    </module>
     <module name="MethodCount"/>
     <module name="MethodLength"/>
     <module name="OuterTypeNumber"/>

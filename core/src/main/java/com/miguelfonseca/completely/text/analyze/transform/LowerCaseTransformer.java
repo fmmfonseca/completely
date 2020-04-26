@@ -1,7 +1,6 @@
 package com.miguelfonseca.completely.text.analyze.transform;
 
 import com.miguelfonseca.completely.text.analyze.Analyzer;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
