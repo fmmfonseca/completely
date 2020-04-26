@@ -1,10 +1,11 @@
 package com.miguelfonseca.completely.text.match;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class EditDistanceAutomatonTest extends AbstractAutomatonTest<EditDistanceAutomaton>
@@ -12,15 +13,19 @@ public class EditDistanceAutomatonTest extends AbstractAutomatonTest<EditDistanc
     @Test
     public void testCreateNegativeThreshold()
     {
-        exceptionRule.expect(IllegalArgumentException.class);
-        new EditDistanceAutomaton("", -1D);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new EditDistanceAutomaton("", -1D)
+        );
     }
 
     @Test
     public void testCreateNullPattern()
     {
-        exceptionRule.expect(NullPointerException.class);
-        new EditDistanceAutomaton(null, 0D);
+        assertThrows(
+            NullPointerException.class,
+            () -> new EditDistanceAutomaton(null, 0D)
+        );
     }
 
     @Test

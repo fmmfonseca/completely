@@ -1,24 +1,13 @@
 package com.miguelfonseca.completely.data;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class ScoredObjectTest
 {
-    @Rule
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    public ExpectedException exceptionRule;
-
-    public ScoredObjectTest()
-    {
-        this.exceptionRule = ExpectedException.none();
-    }
-
     @Test
     public void testCompareTo()
     {

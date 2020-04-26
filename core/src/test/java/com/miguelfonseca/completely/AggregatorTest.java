@@ -2,27 +2,21 @@ package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.ScoredObject;
 import java.util.List;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class AggregatorTest
 {
-    @Rule
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    public ExpectedException exceptionRule;
-
     private Aggregator<String> aggregator;
 
     public AggregatorTest()
     {
         this.aggregator = new Aggregator<>();
-        this.exceptionRule = ExpectedException.none();
     }
 
     @Test
@@ -49,15 +43,19 @@ public class AggregatorTest
     @Test
     public void testAddNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        aggregator.add(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> aggregator.add(null)
+        );
     }
 
     @Test
     public void testAddAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        aggregator.addAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> aggregator.addAll(null)
+        );
     }
 
     @Test
@@ -78,15 +76,19 @@ public class AggregatorTest
     @Test
     public void testRetainNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        aggregator.retain(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> aggregator.retain(null)
+        );
     }
 
     @Test
     public void testRetainAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        aggregator.retainAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> aggregator.retainAll(null)
+        );
     }
 
     @Test

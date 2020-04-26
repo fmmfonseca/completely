@@ -1,9 +1,10 @@
 package com.miguelfonseca.completely.text.analyze.tokenize;
 
 import com.miguelfonseca.completely.text.analyze.AbstractAnalyzerTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QGramTokenizerTest extends AbstractAnalyzerTest<QGramTokenizer>
 {
@@ -15,8 +16,10 @@ public class QGramTokenizerTest extends AbstractAnalyzerTest<QGramTokenizer>
     @Test
     public void testCreateNegativeSize()
     {
-        exceptionRule.expect(IllegalArgumentException.class);
-        new QGramTokenizer(-1);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new QGramTokenizer(-1)
+        );
     }
 
     @Test
@@ -40,7 +43,9 @@ public class QGramTokenizerTest extends AbstractAnalyzerTest<QGramTokenizer>
     @Test
     public void testApplyNullElement()
     {
-        exceptionRule.expect(NullPointerException.class);
-        analyzer.apply((String) null);
+        assertThrows(
+            NullPointerException.class,
+            () -> analyzer.apply((String) null)
+        );
     }
 }

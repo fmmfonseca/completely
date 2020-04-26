@@ -1,9 +1,9 @@
 package com.miguelfonseca.completely.text.analyze;
 
 import com.miguelfonseca.completely.text.analyze.tokenize.QGramTokenizer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class ChainedAnalyzerTest extends AbstractAnalyzerTest<ChainedAnalyzer>

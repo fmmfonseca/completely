@@ -1,26 +1,20 @@
 package com.miguelfonseca.completely.text.index;
 
 import java.util.Collection;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public abstract class AbstractIndexTest<T extends Index<Object>>
 {
-    @Rule
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    public ExpectedException exceptionRule;
-
     protected T index;
 
     public AbstractIndexTest(T index)
     {
-        this.exceptionRule = ExpectedException.none();
         this.index = index;
     }
 
@@ -62,8 +56,10 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testGetAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.getAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.getAll(null)
+        );
     }
 
     @Test
@@ -94,8 +90,10 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testPutNullKey()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.put(null, 0);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.put(null, 0)
+        );
     }
 
     @Test
@@ -108,8 +106,10 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testPutAllNullValues()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.putAll("abc", null);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.putAll("abc", null)
+        );
     }
 
     @Test
@@ -138,8 +138,10 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testRemoveNullKeyValue()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.remove(null, 0);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.remove(null, 0)
+        );
     }
 
     @Test
@@ -193,14 +195,18 @@ public abstract class AbstractIndexTest<T extends Index<Object>>
     @Test
     public void testRemoveAllNullKey()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.removeAll((String) null);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.removeAll((String) null)
+        );
     }
 
     @Test
     public void testRemoveAllNullValues()
     {
-        exceptionRule.expect(NullPointerException.class);
-        index.removeAll((Collection<Object>) null);
+        assertThrows(
+            NullPointerException.class,
+            () -> index.removeAll((Collection<Object>) null)
+        );
     }
 }

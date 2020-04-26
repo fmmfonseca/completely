@@ -1,9 +1,10 @@
 package com.miguelfonseca.completely.text.analyze.transform;
 
 import com.miguelfonseca.completely.text.analyze.AbstractAnalyzerTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LowerCaseTransformerTest extends AbstractAnalyzerTest<LowerCaseTransformer>
 {
@@ -15,8 +16,10 @@ public class LowerCaseTransformerTest extends AbstractAnalyzerTest<LowerCaseTran
     @Test
     public void testCreateNullLocale()
     {
-        exceptionRule.expect(NullPointerException.class);
-        new LowerCaseTransformer(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> new LowerCaseTransformer(null)
+        );
     }
 
     @Test
@@ -30,7 +33,9 @@ public class LowerCaseTransformerTest extends AbstractAnalyzerTest<LowerCaseTran
     @Test
     public void testApplyNullElement()
     {
-        exceptionRule.expect(NullPointerException.class);
-        analyzer.apply((String) null);
+        assertThrows(
+            NullPointerException.class,
+            () -> analyzer.apply((String) null)
+        );
     }
 }

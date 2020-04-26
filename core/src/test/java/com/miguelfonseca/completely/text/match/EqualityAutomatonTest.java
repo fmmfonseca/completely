@@ -1,10 +1,11 @@
 package com.miguelfonseca.completely.text.match;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class EqualityAutomatonTest extends AbstractAutomatonTest<EqualityAutomaton>
@@ -12,8 +13,10 @@ public class EqualityAutomatonTest extends AbstractAutomatonTest<EqualityAutomat
     @Test
     public void testCreateNullPattern()
     {
-        exceptionRule.expect(NullPointerException.class);
-        new EqualityAutomaton(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> new EqualityAutomaton(null)
+        );
     }
 
     @Test

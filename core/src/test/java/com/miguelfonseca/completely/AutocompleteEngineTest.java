@@ -2,26 +2,20 @@ package com.miguelfonseca.completely;
 
 import com.miguelfonseca.completely.data.TestRecord;
 import com.miguelfonseca.completely.text.index.HashMultiMap;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("checkstyle:multiplestringliterals")
 public class AutocompleteEngineTest
 {
-    @Rule
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    public ExpectedException exceptionRule;
-
     private AutocompleteEngine<TestRecord> engine;
 
     public AutocompleteEngineTest()
     {
-        this.exceptionRule = ExpectedException.none();
         this.engine = new AutocompleteEngine.Builder<TestRecord>()
             .setIndex(new HashMultiMap<>())
             .build();
@@ -30,8 +24,10 @@ public class AutocompleteEngineTest
     @Test
     public void testCreateEmpty()
     {
-        exceptionRule.expect(NullPointerException.class);
-        new AutocompleteEngine.Builder<TestRecord>().build();
+        assertThrows(
+            NullPointerException.class,
+            () -> new AutocompleteEngine.Builder<TestRecord>().build()
+        );
     }
 
     @Test
@@ -45,15 +41,19 @@ public class AutocompleteEngineTest
     @Test
     public void testAddNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        engine.add(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> engine.add(null)
+        );
     }
 
     @Test
     public void testAddAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        engine.addAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> engine.addAll(null)
+        );
     }
 
     @Test
@@ -68,15 +68,19 @@ public class AutocompleteEngineTest
     @Test
     public void testRemoveNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        engine.remove(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> engine.remove(null)
+        );
     }
 
     @Test
     public void testRemoveAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        engine.removeAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> engine.removeAll(null)
+        );
     }
 
     @Test
@@ -103,14 +107,18 @@ public class AutocompleteEngineTest
     @Test
     public void testSearchNegativeLimit()
     {
-        exceptionRule.expect(IllegalArgumentException.class);
-        engine.search("", -1);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> engine.search("", -1)
+        );
     }
 
     @Test
     public void testSearchNullQuery()
     {
-        exceptionRule.expect(NullPointerException.class);
-        engine.search(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> engine.search(null)
+        );
     }
 }

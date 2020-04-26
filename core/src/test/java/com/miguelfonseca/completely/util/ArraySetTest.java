@@ -3,25 +3,19 @@ package com.miguelfonseca.completely.util;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ArraySetTest
 {
-    @Rule
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    public ExpectedException exceptionRule;
-
     private ArraySet<Object> set;
 
     public ArraySetTest()
     {
-        this.exceptionRule = ExpectedException.none();
         this.set = new ArraySet<>();
     }
 
@@ -65,8 +59,10 @@ public class ArraySetTest
     @Test
     public void testAddAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        set.addAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> set.addAll(null)
+        );
     }
 
     @Test
@@ -94,8 +90,10 @@ public class ArraySetTest
     {
         Iterator<Object> it = set.iterator();
         assertFalse(it.hasNext());
-        exceptionRule.expect(NoSuchElementException.class);
-        it.next();
+        assertThrows(
+            NoSuchElementException.class,
+            () -> it.next()
+        );
     }
 
     @Test
@@ -143,7 +141,9 @@ public class ArraySetTest
     @Test
     public void testRemoveAllNull()
     {
-        exceptionRule.expect(NullPointerException.class);
-        set.removeAll(null);
+        assertThrows(
+            NullPointerException.class,
+            () -> set.removeAll(null)
+        );
     }
 }
