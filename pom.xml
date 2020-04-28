@@ -41,7 +41,7 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
@@ -71,8 +71,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <release>${java.version}</release>
           <compilerArgs>
             <arg>-Xlint</arg>
           </compilerArgs>

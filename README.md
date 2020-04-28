@@ -18,7 +18,7 @@ All release artifacts are available for download from the [Maven central reposit
 
 # Build from source
 
-Building *Completely* requires Maven 3 and Java 8, or newer.
+Building *Completely* requires Maven 3 and Java 11, or newer.
 
 Download the source code:
 
